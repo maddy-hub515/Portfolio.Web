@@ -1,0 +1,664 @@
+/*
+  site.css - Main Stylesheet
+  ===========================
+  WHY: This is the main CSS file for your React portfolio.
+  It's copied from your ASP.NET project's wwwroot/css/site.css.
+  
+  CSS in React works the same as regular CSS.
+  The only difference is how you reference it:
+  - ASP.NET: <link rel="stylesheet" href="~/css/site.css" />
+  - React: import './styles/site.css' (in main.jsx or App.jsx)
+  
+  OR you can import it in index.html like before (which we do via CDN for Bootstrap).
+  Your custom CSS files are imported in main.jsx.
+  
+  KEY CONCEPTS:
+  1. CSS Classes - Same as ASP.NET, just referenced differently
+  2. CSS Variables - Not used here, but useful for theming
+  3. Media Queries - Responsive design (same as ASP.NET)
+  4. Transitions - Smooth animations for hover effects
+  5. Flexbox - Layout system (same Bootstrap classes)
+*/
+
+/* ============================================
+   BASE STYLES
+   ============================================ */
+
+/* 
+  html font-size - Sets base font size for rem units.
+  1rem = 14px at this setting.
+  Media query increases to 16px on larger screens.
+*/
+html {
+    font-size: 14px;
+    scroll-behavior: smooth;
+    scroll-padding-top: 0;
+}
+
+@media (min-width: 768px) {
+    html {
+        font-size: 16px;
+    }
+}
+
+/* 
+  Focus styles - Accessibility for keyboard navigation.
+  Shows a blue outline when elements are focused.
+*/
+.btn:focus, .btn:active:focus, .btn-link.nav-link:focus, .form-control:focus, .form-check-input:focus {
+    box-shadow: 0 0 0 0.1rem white, 0 0 0 0.25rem #258cfb;
+}
+
+html {
+    position: relative;
+    min-height: 100%;
+}
+
+body {
+    margin-bottom: 60px;
+}
+
+
+/* ============================================
+   SIDEBAR STYLES
+   ============================================ */
+
+/* 
+  Sidebar - Fixed navigation panel on the left.
+  Uses position: sticky to stay visible while scrolling.
+  
+  Key CSS properties:
+  - position: fixed/sticky - Controls positioning
+  - width: 250px - Fixed width
+  - min-height: 100vh - Full viewport height
+  - background: #121212 - Dark background
+*/
+.sidebar {
+    position: fixed;
+    width: 250px;
+    min-height: 100vh;
+    background: #121212;
+    color: #fff;
+    top: 0;
+    z-index: 1000;
+}
+
+/* Sidebar image hover effect */
+.sidebar img {
+    transition: transform 0.3s ease;
+}
+
+.sidebar img:hover {
+    transform: scale(1.05);
+}
+
+/* 
+  Social media icons in sidebar.
+  Uses flexbox to center icons.
+  transition creates smooth hover animation.
+*/
+.sidebar .social-icon {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: #333;
+    color: #fff;
+    font-size: 18px;
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    transition: all 0.3s ease;
+}
+
+.sidebar .social-icon:hover {
+    background: #007bff;
+    color: #fff;
+}
+
+/* 
+  Sidebar navigation links.
+  Uses flexbox for alignment.
+  transition creates smooth hover effect.
+*/
+.sidebar .nav .sidebar-link {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    color: #ccc;
+    text-decoration: none;
+    font-size: 18px;
+    padding: 12px 15px;
+    border-radius: 8px;
+    transition: all 0.3s ease;
+}
+
+.sidebar .nav .sidebar-link i {
+    font-size: 20px;
+}
+
+/* 
+  Active link highlight.
+  This is automatically added by NavLink when URL matches.
+*/
+.sidebar .nav .sidebar-link:hover,
+.sidebar .nav .sidebar-link.active {
+    background: #007bff;
+    color: #fff;
+}
+
+
+/* ============================================
+   RESPONSIVE SIDEBAR
+   ============================================ */
+
+.main-content {
+    margin-left: 250px;
+    padding: 0;
+}
+
+.scroll-container {
+    height: 100vh;
+    overflow: hidden;
+    scrollbar-width: none;
+    -ms-overflow-style: none;
+}
+
+.scroll-container::-webkit-scrollbar {
+    display: none;
+}
+
+.scroll-container section {
+    height: 100vh;
+    overflow-y: auto;
+    scrollbar-width: none;
+    -ms-overflow-style: none;
+}
+
+.scroll-container section::-webkit-scrollbar {
+    display: none;
+}
+
+/* 
+  Mobile sidebar - transforms to horizontal nav.
+  On screens < 992px, sidebar becomes a bottom navigation bar.
+  
+  This is the same responsive behavior as your ASP.NET project.
+*/
+@media (max-width: 992px) {
+    .sidebar {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100% !important;
+        flex-direction: row !important;
+        justify-content: space-around;
+        align-items: center;
+        padding: 10px 0;
+        min-height: auto;
+        z-index: 1000;
+    }
+
+    .sidebar img, .sidebar h4, .sidebar p, .sidebar .social-icon {
+        display: none !important;
+    }
+
+    .sidebar .nav {
+        flex-direction: row !important;
+        gap: 5px;
+    }
+
+    .sidebar .nav .nav-item {
+        margin-bottom: 0 !important;
+    }
+
+    .sidebar .nav .sidebar-link {
+        font-size: 14px;
+        padding: 8px 10px;
+        display: flex;
+        align-items: center;
+    }
+
+    .sidebar .nav .sidebar-link span {
+        display: none;
+    }
+
+    .main-content {
+        margin-left: 0;
+        padding-top: 0 !important;
+    }
+
+    .scroll-container {
+        height: calc(100vh - 50px);
+    }
+
+    .scroll-container section {
+        height: 100%;
+    }
+
+    .about-section, .resume-section, .projects-section, .contact-section {
+        padding: 15px !important;
+    }
+}
+
+
+/* ============================================
+   HERO SECTION
+   ============================================ */
+
+/* 
+  Hero section - Full-screen background image with overlay.
+  
+  Key CSS properties:
+  - background: url(...) - Background image
+  - no-repeat center center/cover - Centers and covers the entire section
+  - min-height: 100vh - Full viewport height
+  - position: relative - Allows absolute positioning of overlay
+*/
+.hero-section {
+    background: url('/images/background_img.jfif') no-repeat center center/cover;
+    height: 100%;
+    position: relative;
+    display: flex;
+    align-items: center;
+    padding-left: 30px;
+}
+
+/* 
+  Dark overlay - Creates semi-transparent layer over background.
+  position: absolute - Covers the entire hero section.
+  z-index: 1 - Behind the content (z-index: 2).
+*/
+.hero-section .overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.4);
+    z-index: 1;
+}
+
+/* 
+  Hero content - Text overlay on the background.
+  z-index: 2 - In front of the overlay.
+*/
+.hero-section .hero-content {
+    position: relative;
+    z-index: 2;
+}
+
+
+/* ============================================
+   ABOUT SECTION
+   ============================================ */
+
+.about-section {
+    background-color: #fff;
+    color: #333;
+    height: 100%;
+    padding: 40px 15px;
+    overflow-y: auto;
+    scrollbar-width: none;
+}
+
+.about-section::-webkit-scrollbar {
+    display: none;
+}
+
+/* 
+  Section title with underline effect.
+  Uses ::after pseudo-element for the blue underline.
+  
+  Key CSS concepts:
+  - position: relative - For positioning the ::after element
+  - content: '' - Required for pseudo-elements
+  - ::after - Adds content after the element
+*/
+.section-title {
+    position: relative;
+    font-size: 32px;
+    font-weight: bold;
+}
+
+.section-title::after {
+    content: '';
+    position: absolute;
+    bottom: -5px;
+    left: 0;
+    width: 80px;
+    height: 3px;
+    background-color: #007bff;
+}
+
+/* Stats section - Counter numbers */
+.stats-section div {
+    width: 200px;
+}
+
+/* 
+  Progress bar - Skill indicators.
+  Uses CSS transition for smooth animation.
+  
+  Key CSS concepts:
+  - height: 8px - Thin progress bar
+  - border-radius: 10px - Rounded corners
+  - overflow: hidden - Clips the fill to the bar
+*/
+.progress {
+    height: 8px;
+    background-color: #e9ecef;
+    border-radius: 10px;
+    overflow: hidden;
+}
+
+/* 
+  Progress bar fill - Animates width from 0 to target.
+  transition: width 1.5s ease-in-out - Smooth animation.
+*/
+.progress-bar {
+    transition: width 1.5s ease-in-out;
+}
+
+/* Profile image and details layout */
+.about-profile {
+    display: flex;
+    gap: 30px;
+    align-items: flex-start;
+}
+
+.profile-img img {
+    width: 300px;
+    height: 300px;
+    object-fit: cover;
+}
+
+.profile-details {
+    flex: 1;
+    min-width: 300px;
+}
+
+
+/* ============================================
+   RESUME SECTION
+   ============================================ */
+
+.resume-section {
+    background-color: #fff;
+    color: #333;
+    height: 100%;
+    padding: 40px 15px;
+    overflow-y: auto;
+    scrollbar-width: none;
+}
+
+.resume-section::-webkit-scrollbar {
+    display: none;
+}
+
+/* 
+  Resume timeline items.
+  Uses border-left and ::before for timeline dots.
+  
+  Key CSS concepts:
+  - border-left - Creates vertical line
+  - ::before pseudo-element - Adds dot at the start
+  - position: absolute - Positions the dot
+*/
+.resume-item {
+    padding-left: 20px;
+    border-left: 3px solid #007bff;
+    margin-bottom: 30px;
+    position: relative;
+}
+
+.resume-item::before {
+    content: '';
+    position: absolute;
+    left: -8px;
+    top: 8px;
+    width: 15px;
+    height: 15px;
+    background: #007bff;
+    border-radius: 50%;
+}
+
+.resume-title {
+    font-size: 20px;
+    font-weight: 600;
+    margin-bottom: 10px;
+}
+
+/* Resume list - Custom bullet points */
+.resume-list {
+    list-style: none;
+    padding: 0;
+}
+
+.resume-list li {
+    margin-bottom: 10px;
+    position: relative;
+    padding-left: 20px;
+}
+
+.resume-list li::before {
+    content: "•";
+    color: #007bff;
+    position: absolute;
+    left: 0;
+    font-size: 18px;
+}
+
+
+/* ============================================
+   PROJECTS SECTION
+   ============================================ */
+
+.projects-section {
+    background-color: #fff;
+    color: #333;
+    height: 100%;
+    padding: 40px 15px;
+    overflow-y: auto;
+    scrollbar-width: none;
+}
+
+.projects-section::-webkit-scrollbar {
+    display: none;
+}
+
+/* 
+  Project cards - Grid items with hover effects.
+  
+  Key CSS concepts:
+  - border-radius: 8px - Rounded corners
+  - overflow: hidden - Clips image to card
+  - transition - Smooth hover animation
+  - cursor: pointer - Changes cursor on hover
+*/
+.project-card {
+    background: #fff;
+    border-radius: 8px;
+    overflow: hidden;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    cursor: pointer;
+}
+
+.project-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+}
+
+/* Project image with overlay */
+.project-img {
+    position: relative;
+    overflow: hidden;
+}
+
+.project-img img {
+    width: 100%;
+    height: 250px;
+    object-fit: cover;
+    transition: transform 0.3s ease;
+}
+
+.project-card:hover img {
+    transform: scale(1.1);
+}
+
+/* 
+  Project overlay - Shows on hover.
+  position: absolute - Covers the entire image.
+  opacity: 0 - Hidden by default.
+  transition - Smooth fade-in effect.
+*/
+.project-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 123, 255, 0.7);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    opacity: 0;
+    transition: opacity 0.3s ease;
+}
+
+.project-card:hover .project-overlay {
+    opacity: 1;
+}
+
+.project-overlay a {
+    color: #333;
+    font-weight: bold;
+    background: #fff;
+    padding: 8px 15px;
+    border-radius: 5px;
+    text-decoration: none;
+}
+
+/* Filter menu - Active button state */
+.filter-menu button.active {
+    background-color: #007bff;
+    color: #fff;
+}
+
+/* Project items - Fade-in animation */
+.project-item {
+    transition: all 0.4s ease;
+}
+
+.fade-in {
+    animation: fadeIn 0.5s ease-in-out;
+}
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: scale(0.95);
+    }
+    to {
+        opacity: 1;
+        transform: scale(1);
+    }
+}
+
+
+/* ============================================
+   CONTACT SECTION
+   ============================================ */
+
+.contact-section {
+    background-color: #fff;
+    color: #333;
+    height: 100%;
+    padding: 10px 15px;
+    overflow-y: auto;
+    scrollbar-width: none;
+}
+
+.contact-section::-webkit-scrollbar {
+    display: none;
+}
+
+/* Contact form inputs */
+.contact-form input, .contact-form textarea {
+    border-radius: 8px;
+    border: 1px solid #ddd;
+    transition: all 0.3s ease;
+}
+
+.contact-form input:focus, .contact-form textarea:focus {
+    border-color: #007bff;
+    box-shadow: 0 0 8px rgba(0, 123, 255, 0.2);
+}
+
+/* Toast/notification animation */
+.toast {
+    animation: fadeIn 0.5s ease-in-out;
+}
+
+
+/* ============================================
+   RESPONSIVE STYLES
+   ============================================ */
+
+/* Mobile - Profile section */
+@media (max-width: 768px) {
+    .about-profile {
+        flex-direction: column;
+        align-items: center;
+        text-align: center;
+    }
+
+    .profile-img img {
+        width: 200px;
+        height: 200px;
+    }
+
+    .profile-details {
+        min-width: auto;
+        width: 100%;
+    }
+
+    .stats-section div {
+        width: 100%;
+    }
+
+    .section-title {
+        font-size: 24px;
+    }
+
+    .hero-section {
+        padding-left: 15px;
+        padding-right: 15px;
+        padding-top: 70px;
+        justify-content: center;
+    }
+
+    .hero-section .hero-content {
+        width: 100%;
+        overflow: hidden;
+    }
+
+    .hero-section .hero-content h1 {
+        font-size: 1.5rem;
+    }
+
+    .hero-section .hero-content p {
+        font-size: 0.9rem;
+    }
+
+    .project-img img {
+        height: 180px;
+    }
+
+    .about-section, .resume-section, .projects-section, .contact-section {
+        padding: 15px;
+    }
+
+    .scroll-container section {
+        height: 100%;
+    }
+}
