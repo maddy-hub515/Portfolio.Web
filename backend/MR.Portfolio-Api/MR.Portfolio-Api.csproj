@@ -1,10 +1,11 @@
-<Project Sdk="Microsoft.NET.Sdk.Web">
+﻿<Project Sdk="Microsoft.NET.Sdk.Web">
 
   <PropertyGroup>
     <TargetFramework>net10.0</TargetFramework>
     <Nullable>enable</Nullable>
     <ImplicitUsings>enable</ImplicitUsings>
     <RootNamespace>MR.Portfolio_Api</RootNamespace>
+    <UserSecretsId>7e678649-8cf5-4601-877d-d7dc68557991</UserSecretsId>
   </PropertyGroup>
 
   <ItemGroup>
