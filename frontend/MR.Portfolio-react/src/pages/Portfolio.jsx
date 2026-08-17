@@ -83,248 +83,629 @@ function Portfolio() {
   return (
     <>
       {/* HOME SECTION */}
-      <section id="home" className="hero-section text-white d-flex flex-column justify-content-center align-items-start">
-        <div className="overlay"></div>
+      <section id="home" className="hero-section">
+        <div className="hero-overlay"></div>
         <div className="hero-content">
-          <h1 className="display-3 fw-bold">Madesh Ram</h1>
-          <p className="fs-3">I'm a Full Stack Developer</p>
-          <a href="#about" className="btn btn-primary btn-lg mt-3">Know More</a>
+          <div className="greeting-badge">
+            <span>Hi, I'm</span>
+            <span className="wave-emoji">👋</span>
+          </div>
+          <h1 className="hero-name">Madesh Ram</h1>
+          <h2 className="hero-title">Software Engineer</h2>
+          <h3 className="hero-subtitle">.NET Full-Stack Developer</h3>
+          <p className="hero-description">
+            I build scalable and secure web applications using C#, .NET Core, ASP.NET, React, SQL Server, and Azure. Turning ideas into real-world solutions.
+          </p>
+          <div className="hero-buttons">
+            <a href="#projects" className="btn-primary-custom">
+              <i className="bi bi-box-arrow-up-right"></i>
+              <span>View My Work</span>
+            </a>
+            <a href="/resume.pdf" className="btn-outline-custom" download>
+              <i className="bi bi-download"></i>
+              <span>Download Resume</span>
+            </a>
+          </div>
+          <div className="tech-stack">
+            <span className="tech-label">Tech I work with:</span>
+            <div className="tech-badges">
+              <span className="tech-badge"><i className="bi bi-gear"></i> .NET</span>
+              <span className="tech-badge"><i className="bi bi-c-circle"></i> C#</span>
+              <span className="tech-badge"><i className="bi bi-react"></i> React</span>
+              <span className="tech-badge"><i className="bi bi-database"></i> SQL Server</span>
+              <span className="tech-badge"><i className="bi bi-cloud"></i> Azure</span>
+            </div>
+          </div>
+        </div>
+        <div className="hero-stats">
+          <div className="stat-card">
+            <div className="stat-icon">
+              <i className="bi bi-calendar-check"></i>
+            </div>
+            <div className="stat-content">
+              <h4 className="stat-number">3+</h4>
+              <p className="stat-label">Years Experience</p>
+              <p className="stat-desc">Building enterprise solutions</p>
+            </div>
+          </div>
+          <div className="stat-card">
+            <div className="stat-icon">
+              <i className="bi bi-people"></i>
+            </div>
+            <div className="stat-content">
+              <h4 className="stat-number">10K+</h4>
+              <p className="stat-label">Users Impacted</p>
+              <p className="stat-desc">Applications used by thousands</p>
+            </div>
+          </div>
+          <div className="stat-card">
+            <div className="stat-icon">
+              <i className="bi bi-globe"></i>
+            </div>
+            <div className="stat-content">
+              <h4 className="stat-number">20+</h4>
+              <p className="stat-label">Client Environments</p>
+              <p className="stat-desc">Delivered solutions across industries</p>
+            </div>
+          </div>
+          <div className="stat-card">
+            <div className="stat-icon">
+              <i className="bi bi-graph-up-arrow"></i>
+            </div>
+            <div className="stat-content">
+              <h4 className="stat-number">60%</h4>
+              <p className="stat-label">Query Performance Improvement</p>
+              <p className="stat-desc">Through optimization and best practices</p>
+            </div>
+          </div>
         </div>
       </section>
 
       {/* ABOUT SECTION */}
-      <section id="about" className="about-section p-4">
-        <h1 className="section-title mb-4">About</h1>
-        <p className="lead mb-5">
-          As a passionate Full Stack Developer, I thrive on solving complex problems and delivering high-quality software solutions.
-          I believe that taking responsibility and facing challenges head-on is the foundation of growth — both personally and professionally.
-          With a strong desire to innovate and lead, I take pride in building scalable, efficient, and user-friendly applications.
-        </p>
-        <div className="d-flex flex-wrap align-items-start gap-4 about-profile">
-          <div className="profile-img">
-            <img src="/images/Madesh_about_img.JPG" alt="Profile Image" className="rounded shadow" />
-          </div>
-          <div className="profile-details">
-            <h2 className="mb-3">Full Stack Developer</h2>
-            <div className="row">
-              <div className="col-md-6">
-                <p><strong>Birthday:</strong> 11 November 2000</p>
-                <p><strong>Age:</strong> 24</p>
-                <p><strong>Degree:</strong> Bachelor</p>
-                <p><strong>City:</strong> Chennai, Tamil Nadu</p>
+      <section id="about" className="about-section">
+        <div className="about-container">
+          <div className="about-content">
+            <span className="about-label">ABOUT ME</span>
+            <h1 className="about-title">About Me</h1>
+            <div className="about-underline"></div>
+            
+            <div className="about-description">
+              <p>
+                I'm a Software Engineer with 3+ years of experience in building enterprise
+                applications using scalable solutions and modern technologies.
+              </p>
+              <p>
+                I specialize in developing secure REST APIs, building responsive user
+                interfaces, optimizing database queries, and deploying applications on
+                cloud platforms. I am passionate about writing clean code and creating
+                impactful digital experiences.
+              </p>
+              <p>
+                I enjoy solving complex problems, learning new technologies, and
+                collaborating with amazing teams to deliver products that matter.
+              </p>
+            </div>
+
+            <div className="about-info-grid">
+              <div className="info-card">
+                <div className="info-icon">
+                  <i className="bi bi-person"></i>
+                </div>
+                <div className="info-content">
+                  <span className="info-label">Name</span>
+                  <span className="info-value">Madesh Ram</span>
+                </div>
               </div>
-              <div className="col-md-6">
-                <p><strong>Website:</strong> <a href="https://madeshram-portfolio.onrender.com" className="text-decoration-none">www.example.com</a></p>
-                <p><strong>Freelance:</strong> Available</p>
-                <p><strong>Email:</strong> <a href="mailto:madeshram66@gmail.com" className="text-decoration-none">madeshram66@gmail.com</a></p>
-                <p><strong>Phone:</strong> +91 6374407398</p>
+              <div className="info-card">
+                <div className="info-icon">
+                  <i className="bi bi-briefcase"></i>
+                </div>
+                <div className="info-content">
+                  <span className="info-label">Role</span>
+                  <span className="info-value">Software Engineer</span>
+                </div>
+              </div>
+              <div className="info-card">
+                <div className="info-icon">
+                  <i className="bi bi-calendar-check"></i>
+                </div>
+                <div className="info-content">
+                  <span className="info-label">Experience</span>
+                  <span className="info-value">3+ Years</span>
+                </div>
+              </div>
+              <div className="info-card">
+                <div className="info-icon">
+                  <i className="bi bi-award"></i>
+                </div>
+                <div className="info-content">
+                  <span className="info-label">Specialization</span>
+                  <span className="info-value">.NET | React | SQL | Azure</span>
+                </div>
+              </div>
+              <div className="info-card">
+                <div className="info-icon">
+                  <i className="bi bi-geo-alt"></i>
+                </div>
+                <div className="info-content">
+                  <span className="info-label">Location</span>
+                  <span className="info-value">Chennai, Tamil Nadu, India</span>
+                </div>
+              </div>
+              <div className="info-card">
+                <div className="info-icon">
+                  <i className="bi bi-code-slash"></i>
+                </div>
+                <div className="info-content">
+                  <span className="info-label">Availability</span>
+                  <span className="info-value">Open to Opportunities</span>
+                </div>
               </div>
             </div>
-            <p className="mt-3">
-              I'm a Full Stack Developer from Chennai with 2+ years of experience in building responsive web applications using
-              HTML, CSS, JavaScript, .NET Core, and ASP.NET MVC. I focus on clean code, scalable architecture, and continuous learning.
-            </p>
+          </div>
+
+          <div className="about-image-section">
+            <div className="about-image-wrapper">
+              <img src="/images/Madesh_about_img.JPG" alt="Madesh Ram" className="about-profile-img" />
+              <div className="about-image-overlay">
+                <span className="signature-text">Madesh Ram</span>
+                <span className="tagline-text">BUILD • LEARN • GROW</span>
+              </div>
+            </div>
           </div>
         </div>
 
-        <div className="stats-section d-flex justify-content-between flex-wrap mt-5" ref={countersRef}>
-          <div className="text-center">
-            <h2><i className="bi bi-emoji-smile text-primary"></i> <span className="counter" data-target="01">0</span></h2>
-            <p><strong>Happy Clients</strong><br />Satisfied Clients</p>
+        <div className="about-footer">
+          <div className="footer-quote">
+            <i className="bi bi-quote"></i>
+            <span>Code with purpose. Build with passion.</span>
           </div>
-          <div className="text-center">
-            <h2><i className="bi bi-file-earmark-richtext text-primary"></i> <span className="counter" data-target="02">0</span></h2>
-            <p><strong>Projects</strong><br />Completed Projects</p>
-          </div>
-          <div className="text-center">
-            <h2><i className="bi bi-people text-primary"></i> <span className="counter" data-target="01">0</span></h2>
-            <p><strong>Hard Workers</strong><br />Dedicated Team</p>
-          </div>
-          <div className="text-center">
-            <h2><i className="bi bi-headset text-primary"></i> <span className="counter" data-target="70">0</span></h2>
-            <p><strong>Hours Of Support</strong><br />Ongoing Support</p>
-          </div>
-        </div>
-
-        <div className="skills-section mt-5" ref={progressBarsRef}>
-          <h3 className="section-title mb-4">Skills</h3>
-          <div className="row">
-            <div className="col-md-6 mb-3"><p><strong>HTML</strong> <span className="float-end">50%</span></p><div className="progress"><div className="progress-bar bg-primary" data-progress="50" style={{ width: '0' }}></div></div></div>
-            <div className="col-md-6 mb-3"><p><strong>JavaScript</strong> <span className="float-end">50%</span></p><div className="progress"><div className="progress-bar bg-primary" data-progress="50" style={{ width: '0' }}></div></div></div>
-            <div className="col-md-6 mb-3"><p><strong>CSS</strong> <span className="float-end">50%</span></p><div className="progress"><div className="progress-bar bg-primary" data-progress="50" style={{ width: '0' }}></div></div></div>
-            <div className="col-md-6 mb-3"><p><strong>C#</strong> <span className="float-end">50%</span></p><div className="progress"><div className="progress-bar bg-primary" data-progress="50" style={{ width: '0' }}></div></div></div>
-            <div className="col-md-6 mb-3"><p><strong>.NET Core</strong> <span className="float-end">60%</span></p><div className="progress"><div className="progress-bar bg-primary" data-progress="60" style={{ width: '0' }}></div></div></div>
-            <div className="col-md-6 mb-3"><p><strong>Web API</strong> <span className="float-end">70%</span></p><div className="progress"><div className="progress-bar bg-primary" data-progress="70" style={{ width: '0' }}></div></div></div>
-            <div className="col-md-6 mb-3"><p><strong>ASP.NET MVC</strong> <span className="float-end">70%</span></p><div className="progress"><div className="progress-bar bg-primary" data-progress="70" style={{ width: '0' }}></div></div></div>
-            <div className="col-md-6 mb-3"><p><strong>Entity Framework</strong> <span className="float-end">60%</span></p><div className="progress"><div className="progress-bar bg-primary" data-progress="60" style={{ width: '0' }}></div></div></div>
-            <div className="col-md-6 mb-3"><p><strong>ADO.Net</strong> <span className="float-end">60%</span></p><div className="progress"><div className="progress-bar bg-primary" data-progress="60" style={{ width: '0' }}></div></div></div>
-            <div className="col-md-6 mb-3"><p><strong>MS-SQL Server</strong> <span className="float-end">70%</span></p><div className="progress"><div className="progress-bar bg-primary" data-progress="70" style={{ width: '0' }}></div></div></div>
+          <div className="footer-cta">
+            <span>Let's connect and build something amazing together!</span>
+            <i className="bi bi-handshake"></i>
           </div>
         </div>
       </section>
 
-      {/* RESUME SECTION */}
-      <section id="resume" className="resume-section p-4">
-        <h1 className="section-title mb-4">Resume</h1>
-        <p className="lead mb-5">
-          Dedicated Software Engineer with a strong passion for building scalable and efficient applications.
-          With expertise in .NET, SQL, and modern web technologies, I deliver high-quality solutions that drive business success.
-        </p>
-        <div className="container">
-          <div className="row g-4">
-            <div className="col-md-6">
-              <div className="resume-item mb-4">
-                <h3 className="resume-title">Summary</h3>
-                <p><strong>MADESH RAM</strong></p>
-                <p><em>Dedicated Software Engineer with 2+ years of experience in the debt collection sector. Skilled in ASP.NET, .NET Core, Web API, MS-SQL Server, and front-end technologies.</em></p>
-                <ul className="resume-list">
-                  <li>9/13 Bhavani Flats, Nanmangalam, Chennai - 600119</li>
-                  <li>+91 6374407398</li>
-                  <li>madeshram66@gmail.com</li>
-                </ul>
+      {/* SKILLS SECTION */}
+      <section id="skills" className="skills-section">
+        <div className="skills-header">
+          <h2 className="skills-title">My Skills</h2>
+          <div className="skills-underline"></div>
+        </div>
+
+        <div className="skills-grid">
+          {/* Backend Development */}
+          <div className="skill-category-card">
+            <div className="skill-category-header">
+              <div className="skill-icon backend">
+                <i className="bi bi-code-slash"></i>
               </div>
-              <div className="resume-item">
-                <h3 className="resume-title">Education</h3>
-                <p><strong>Bachelor of Commerce</strong></p>
-                <p className="text-muted">2019 - 2022</p>
-              </div>
+              <h3 className="skill-category-title">Backend Development</h3>
             </div>
-            <div className="col-md-6">
-              <div className="resume-item">
-                <h3 className="resume-title">Professional Experience</h3>
-                <p><strong>DOTNET DEVELOPER</strong></p>
-                <p className="text-muted">Logic Valley | June 2023 – Present</p>
-                <ul className="resume-list">
-                  <li>Designed and developed user-friendly applications using ASP.NET, HTML, and JavaScript.</li>
-                  <li>Implemented secure and scalable back-end services using .NET Core and Web API.</li>
-                  <li>Managed and optimized MS-SQL Server databases for high performance and data integrity.</li>
-                  <li>Automated manual processes through Windows Services, improving operational efficiency.</li>
-                  <li>Collaborated in Agile teams to gather requirements and deliver business-driven solutions.</li>
-                  <li>Utilized Azure DevOps for version control, sprint planning, and task management.</li>
-                </ul>
+            <div className="skill-tags">
+              <span className="skill-tag">C#</span>
+              <span className="skill-tag">.NET Core</span>
+              <span className="skill-tag">ASP.NET Core</span>
+              <span className="skill-tag">Web API</span>
+              <span className="skill-tag">REST APIs</span>
+              <span className="skill-tag">Entity Framework Core</span>
+              <span className="skill-tag">LINQ</span>
+              <span className="skill-tag">ADO.NET</span>
+            </div>
+          </div>
+
+          {/* Azure & DevOps */}
+          <div className="skill-category-card">
+            <div className="skill-category-header">
+              <div className="skill-icon azure">
+                <i className="bi bi-cloud"></i>
               </div>
+              <h3 className="skill-category-title">Azure & DevOps</h3>
+            </div>
+            <div className="skill-tags">
+              <span className="skill-tag">Azure DevOps</span>
+              <span className="skill-tag">Azure Pipelines</span>
+              <span className="skill-tag">App Service</span>
+              <span className="skill-tag">Key Vault</span>
+              <span className="skill-tag">Service Bus</span>
+              <span className="skill-tag">Functions</span>
+              <span className="skill-tag">Event Grid</span>
+              <span className="skill-tag">AI Search</span>
+              <span className="skill-tag">CI/CD</span>
+            </div>
+          </div>
+
+          {/* Frontend Development */}
+          <div className="skill-category-card">
+            <div className="skill-category-header">
+              <div className="skill-icon frontend">
+                <i className="bi bi-react"></i>
+              </div>
+              <h3 className="skill-category-title">Frontend Development</h3>
+            </div>
+            <div className="skill-tags">
+              <span className="skill-tag">React.js</span>
+              <span className="skill-tag">TypeScript</span>
+              <span className="skill-tag">JavaScript (ES6+)</span>
+              <span className="skill-tag">HTML5</span>
+              <span className="skill-tag">CSS3</span>
+              <span className="skill-tag">Bootstrap</span>
+              <span className="skill-tag">Tailwind CSS</span>
+            </div>
+          </div>
+
+          {/* Architecture & Practices */}
+          <div className="skill-category-card">
+            <div className="skill-category-header">
+              <div className="skill-icon architecture">
+                <i className="bi bi-diagram-3"></i>
+              </div>
+              <h3 className="skill-category-title">Architecture & Practices</h3>
+            </div>
+            <div className="skill-tags">
+              <span className="skill-tag">OOP</span>
+              <span className="skill-tag">SOLID</span>
+              <span className="skill-tag">Clean Architecture</span>
+              <span className="skill-tag">MVC</span>
+              <span className="skill-tag">JWT Authentication</span>
+              <span className="skill-tag">REST Security</span>
+              <span className="skill-tag">Agile Scrum</span>
+              <span className="skill-tag">Git</span>
+              <span className="skill-tag">Postman</span>
+              <span className="skill-tag">Unit Testing</span>
+            </div>
+          </div>
+
+          {/* Database */}
+          <div className="skill-category-card">
+            <div className="skill-category-header">
+              <div className="skill-icon database">
+                <i className="bi bi-database"></i>
+              </div>
+              <h3 className="skill-category-title">Database</h3>
+            </div>
+            <div className="skill-tags">
+              <span className="skill-tag">MS SQL Server</span>
+              <span className="skill-tag">T-SQL</span>
+              <span className="skill-tag">Stored Procedures</span>
+              <span className="skill-tag">Triggers</span>
+              <span className="skill-tag">Query Optimization</span>
+              <span className="skill-tag">Indexing</span>
+              <span className="skill-tag">Performance Tuning</span>
+            </div>
+          </div>
+
+          {/* AI-Assisted Development */}
+          <div className="skill-category-card">
+            <div className="skill-category-header">
+              <div className="skill-icon ai">
+                <i className="bi bi-robot"></i>
+              </div>
+              <h3 className="skill-category-title">AI-Assisted Development</h3>
+            </div>
+            <div className="skill-tags">
+              <span className="skill-tag">GitHub Copilot</span>
+              <span className="skill-tag">ChatGPT</span>
+              <span className="skill-tag">Claude</span>
+              <span className="skill-tag">Prompt Engineering</span>
+              <span className="skill-tag">Workflow Automation</span>
+              <span className="skill-tag">OpenAI API (Learning)</span>
             </div>
           </div>
         </div>
       </section>
 
       {/* PROJECTS SECTION */}
-      <section id="projects" className="projects-section p-4">
-        <h1 className="section-title mb-4">Projects</h1>
-        <p className="lead mb-5">
-          A showcase of my recent work, featuring web applications, mobile apps, and product branding projects.
-        </p>
-        <div className="filter-menu mb-4 text-center">
-          {['all', 'web', 'mobile', 'branding'].map(filter => (
-            <button key={filter} className={`btn btn-outline-primary ${activeFilter === filter ? 'active' : ''}`} onClick={() => setActiveFilter(filter)}>
-              {filter.charAt(0).toUpperCase() + filter.slice(1)}
-            </button>
-          ))}
+      <section id="projects" className="projects-section">
+        <div className="projects-header">
+          <div className="projects-header-content">
+            <h1 className="projects-title">Featured Projects</h1>
+            <p className="projects-subtitle">Some of the projects I've worked on.</p>
+          </div>
+          <a href="https://github.com/maddy-hub515" className="github-btn" target="_blank" rel="noopener noreferrer">
+            <i className="bi bi-github"></i>
+            <span>View All on GitHub</span>
+          </a>
         </div>
-        <div className="container">
-          <div className="row g-4">
-            {filteredProjects.map(project => (
-              <div key={project.id} className="col-md-6 col-lg-4 project-item fade-in">
-                <div className="project-card shadow-sm">
-                  <div className="project-img">
-                    <img src={project.image} alt={project.title} className="img-fluid" />
-                    <div className="project-overlay">
-                      <button className="btn btn-light btn-sm" onClick={() => setSelectedProject(project.id)}>View Details</button>
-                    </div>
-                  </div>
-                  <h4 className="mt-3">{project.title}</h4>
-                  <p className="text-muted">{project.category}</p>
-                </div>
+
+        <div className="projects-grid">
+          {/* Project 1 */}
+          <div className="project-card-new">
+            <div className="project-card-image">
+              <img src="/images/project-debt-collection.jpg" alt="Debt Collection Management System" />
+              <span className="project-badge enterprise">Enterprise</span>
+            </div>
+            <div className="project-card-content">
+              <h3 className="project-card-title">Debt Collection Management System</h3>
+              <p className="project-card-desc">Enterprise solution for case management, payment processing, compliance and reporting.</p>
+              <div className="project-card-tags">
+                <span className="project-tag">.NET Core</span>
+                <span className="project-tag">SQL Server</span>
+                <span className="project-tag">React</span>
+                <span className="project-tag">Azure</span>
               </div>
-            ))}
+            </div>
+          </div>
+
+          {/* Project 2 */}
+          <div className="project-card-new">
+            <div className="project-card-image">
+              <img src="/images/project-report.jpg" alt="Automated Report Generation" />
+              <span className="project-badge internal">Internal Tool</span>
+            </div>
+            <div className="project-card-content">
+              <h3 className="project-card-title">Automated Report Generation</h3>
+              <p className="project-card-desc">Automated Windows Service application that generates and distributes reports to multiple clients.</p>
+              <div className="project-card-tags">
+                <span className="project-tag">C#</span>
+                <span className="project-tag">SQL Server</span>
+                <span className="project-tag">Windows Service</span>
+                <span className="project-tag">Azure</span>
+              </div>
+            </div>
+          </div>
+
+          {/* Project 3 */}
+          <div className="project-card-new">
+            <div className="project-card-image">
+              <img src="/images/project-portfolio-img.jpg" alt="Portfolio Website" />
+              <span className="project-badge personal">Personal</span>
+            </div>
+            <div className="project-card-content">
+              <h3 className="project-card-title">Portfolio Website</h3>
+              <p className="project-card-desc">My personal portfolio built with React and .NET Core API with contact form and email integration.</p>
+              <div className="project-card-tags">
+                <span className="project-tag">React</span>
+                <span className="project-tag">.NET Core</span>
+                <span className="project-tag">SMTP</span>
+                <span className="project-tag">Notify</span>
+              </div>
+            </div>
           </div>
         </div>
-        {selectedProject && (() => {
-          const project = projects.find(p => p.id === selectedProject)
-          if (!project) return null
-          return (
-            <div className="modal fade show d-block" tabIndex="-1" style={{ backgroundColor: 'rgba(0,0,0,0.5)' }} onClick={() => setSelectedProject(null)}>
-              <div className="modal-dialog modal-lg modal-dialog-centered" onClick={e => e.stopPropagation()}>
-                <div className="modal-content p-4">
-                  <div className="d-flex justify-content-between align-items-center mb-3">
-                    <h3>{project.title}</h3>
-                    <button type="button" className="btn-close" onClick={() => setSelectedProject(null)}></button>
-                  </div>
-                  <img src={project.image} className="img-fluid rounded mb-3" alt={project.title} />
-                  <p><strong>Project Description:</strong> {project.description}</p>
-                  <p><strong>{project.linkText}:</strong> <a href={project.link} target="_blank" rel="noopener noreferrer">{project.linkText}</a></p>
+
+        {/* Pagination Dots */}
+        <div className="projects-pagination">
+          <span className="pagination-dot active"></span>
+          <span className="pagination-dot"></span>
+          <span className="pagination-dot"></span>
+        </div>
+      </section>
+
+      {/* RESUME SECTION */}
+      <section id="resume" className="resume-section">
+        <div className="resume-header">
+          <div className="resume-header-content">
+            <h1 className="resume-title-main">Resume</h1>
+            <p className="resume-subtitle">My professional journey and educational background.</p>
+          </div>
+          <a href="/resume.pdf" className="download-resume-btn-top" download>
+            <i className="bi bi-download"></i>
+            <span>Download Resume</span>
+          </a>
+        </div>
+
+        <div className="resume-container">
+          {/* Left Column */}
+          <div className="resume-left-column">
+            {/* Experience Section */}
+            <div className="resume-block">
+              <div className="resume-block-header">
+                <div className="resume-block-icon experience">
+                  <i className="bi bi-briefcase"></i>
+                </div>
+                <h2 className="resume-block-title">Experience</h2>
+              </div>
+              <div className="resume-block-content">
+                <div className="experience-item">
+                  <h3 className="experience-role">Software Engineer II</h3>
+                  <p className="experience-company">Logic Valley | June 2023 – Present</p>
+                  <ul className="experience-list">
+                    <li>Building and maintaining enterprise applications for debt collection, supporting 20+ client environments using C#, .NET Core, ASP.NET MVC, React.js, and MS SQL Server.</li>
+                    <li>Developing REST APIs, business modules, and integrating Azure services.</li>
+                    <li>Optimizing SQL server performance and ensuring data integrity.</li>
+                    <li>Managing CI/CD pipelines using Azure DevOps.</li>
+                    <li>Supporting production environments across 20+ client environments.</li>
+                  </ul>
                 </div>
               </div>
             </div>
-          )
-        })()}
+
+            {/* Education Section */}
+            <div className="resume-block">
+              <div className="resume-block-header">
+                <div className="resume-block-icon education">
+                  <i className="bi bi-mortarboard"></i>
+                </div>
+                <h2 className="resume-block-title">Education</h2>
+              </div>
+              <div className="resume-block-content">
+                <div className="education-item">
+                  <h3 className="education-degree">Bachelor of Commerce (B.Com)</h3>
+                  <p className="education-college">Sri Vani Vidyalaya/Vidhyaa Arts and Science College</p>
+                  <p className="education-period">2019 – 2022 | 84%</p>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          {/* Right Column */}
+          <div className="resume-right-column">
+            {/* Professional Summary */}
+            <div className="resume-block">
+              <div className="resume-block-header">
+                <div className="resume-block-icon summary">
+                  <i className="bi bi-person-badge"></i>
+                </div>
+                <h2 className="resume-block-title">Professional Summary</h2>
+              </div>
+              <div className="resume-block-content">
+                <p className="summary-text">
+                  Software Engineer with 3+ years of experience building enterprise applications. Skilled in scalable solutions using C#, .NET Core, ASP.NET MVC, React.js, and MS SQL Server. Experienced in designing secure REST APIs, optimizing SQL performance, and deploying cloud-based solutions on Azure. Passionate about leveraging AI coding assistants (GitHub Copilot, ChatGPT) to accelerate development without compromising quality.
+                </p>
+              </div>
+            </div>
+
+            {/* Core Strengths */}
+            <div className="resume-block">
+              <div className="resume-block-header">
+                <div className="resume-block-icon strengths">
+                  <i className="bi bi-star"></i>
+                </div>
+                <h2 className="resume-block-title">Core Strengths</h2>
+              </div>
+              <div className="resume-block-content">
+                <ul className="strengths-list">
+                  <li>
+                    <i className="bi bi-check-circle-fill"></i>
+                    <span>Problem Solving & Analytical Thinking</span>
+                  </li>
+                  <li>
+                    <i className="bi bi-check-circle-fill"></i>
+                    <span>Clean Code & Readable Architecture</span>
+                  </li>
+                  <li>
+                    <i className="bi bi-check-circle-fill"></i>
+                    <span>Performance Optimization</span>
+                  </li>
+                  <li>
+                    <i className="bi bi-check-circle-fill"></i>
+                    <span>Team Collaboration & Communication</span>
+                  </li>
+                  <li>
+                    <i className="bi bi-check-circle-fill"></i>
+                    <span>Continuous Learning & Adaptability</span>
+                  </li>
+                </ul>
+              </div>
+            </div>
+          </div>
+        </div>
       </section>
 
       {/* CONTACT SECTION */}
-      <section id="contact" className="contact-section p-4">
-        <div className="container py-3">
-          <h1 className="text-center fw-bold mb-4 position-relative" style={{ paddingBottom: '10px' }}>
-            Contact Me
-            <span style={{ position: 'absolute', bottom: 0, left: '50%', transform: 'translateX(-50%)', width: '60px', height: '3px', backgroundColor: '#007bff' }}></span>
-          </h1>
-          <p className="text-center text-muted mb-5" style={{ maxWidth: '700px', margin: '0 auto' }}>
-            I'd love to hear from you! Whether you have a question, a project in mind, or just want to connect, feel free to reach out.
-          </p>
-          {alert.message && (
-            <div className={`alert alert-${alert.type} alert-dismissible fade show text-center w-75 mx-auto mb-4`} role="alert">
-              {alert.message}
-              <button type="button" className="btn-close" onClick={() => setAlert({ type: '', message: '' })}></button>
-            </div>
-          )}
-          <div className="row g-5">
-            <div className="col-lg-5">
-              <div className="d-flex flex-column gap-4">
-                <div className="d-flex align-items-center">
-                  <i className="bi bi-geo-alt-fill text-primary fs-2 me-3"></i>
-                  <div><h5 className="fw-bold mb-1">Address</h5><p className="mb-0 text-muted">9/13 Maniyammai Street, Chennai, 600117</p></div>
+      <section id="contact" className="contact-section">
+        <div className="contact-bg-overlay"></div>
+        
+        <div className="contact-container">
+          {/* Left Column - Contact Info */}
+          <div className="contact-info">
+            <h2 className="contact-title">Let's Connect</h2>
+            <div className="contact-title-underline"></div>
+            <p className="contact-subtitle">
+              I'm open to discussing new opportunities, interesting projects, or just having a friendly chat about technology.
+            </p>
+
+            <div className="contact-details">
+              <div className="contact-item">
+                <div className="contact-icon">
+                  <i className="bi bi-envelope"></i>
                 </div>
-                <div className="d-flex align-items-center">
-                  <i className="bi bi-telephone-fill text-primary fs-2 me-3"></i>
-                  <div><h5 className="fw-bold mb-1">Call Me</h5><p className="mb-0 text-muted">+91 63744 07398</p></div>
+                <div className="contact-item-content">
+                  <span className="contact-item-label">Email</span>
+                  <span className="contact-item-value">maddymaddy2679@gmail.com</span>
                 </div>
-                <div className="d-flex align-items-center">
-                  <i className="bi bi-envelope-fill text-primary fs-2 me-3"></i>
-                  <div><h5 className="fw-bold mb-1">Email Me</h5><p className="mb-0 text-muted">madeshram66@gmail.com</p></div>
+              </div>
+
+              <div className="contact-item">
+                <div className="contact-icon">
+                  <i className="bi bi-telephone"></i>
                 </div>
-                <div className="rounded shadow-sm overflow-hidden mt-4">
-                  <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3021.8434782316527!2d-74.01007368459199!3d40.71158227933151!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x89c25a20b6c0b7df%3A0x1a0e0db2b6e6e8b8!2sDowntown%20Conference%20Center!5e0!3m2!1sen!2sus!4v1616585637997!5m2!1sen!2sus" width="100%" height="250" style={{ border: 0 }} allowFullScreen loading="lazy" title="Google Map"></iframe>
+                <div className="contact-item-content">
+                  <span className="contact-item-label">Phone</span>
+                  <span className="contact-item-value">+91 6374407398</span>
+                </div>
+              </div>
+
+              <div className="contact-item">
+                <div className="contact-icon">
+                  <i className="bi bi-geo-alt"></i>
+                </div>
+                <div className="contact-item-content">
+                  <span className="contact-item-label">Location</span>
+                  <span className="contact-item-value">Chennai, Tamil Nadu, India</span>
+                </div>
+              </div>
+
+              <div className="contact-item">
+                <div className="contact-icon">
+                  <i className="bi bi-linkedin"></i>
+                </div>
+                <div className="contact-item-content">
+                  <span className="contact-item-label">LinkedIn</span>
+                  <a href="https://linkedin.com/in/madesh-ram" target="_blank" rel="noopener noreferrer" className="contact-item-value contact-link">linkedin.com/in/madesh-ram</a>
+                </div>
+              </div>
+
+              <div className="contact-item">
+                <div className="contact-icon">
+                  <i className="bi bi-github"></i>
+                </div>
+                <div className="contact-item-content">
+                  <span className="contact-item-label">GitHub</span>
+                  <a href="https://github.com/madeshram66" target="_blank" rel="noopener noreferrer" className="contact-item-value contact-link">github.com/madeshram66</a>
                 </div>
               </div>
             </div>
-            <div className="col-lg-7">
-              <div className="p-4 shadow-lg rounded bg-white">
-                <h4 className="fw-bold mb-3">Send Me a Message</h4>
-                <form onSubmit={handleSubmit} className="row g-3 needs-validation" noValidate>
-                  <div className="col-md-6">
-                    <label className="form-label fw-semibold">Your Name</label>
-                    <input type="text" className="form-control" name="name" value={formData.name} onChange={handleChange} placeholder="Enter your name" required />
-                  </div>
-                  <div className="col-md-6">
-                    <label className="form-label fw-semibold">Your Email</label>
-                    <input type="email" className="form-control" name="email" value={formData.email} onChange={handleChange} placeholder="Enter your email" required />
-                  </div>
-                  <div className="col-12">
-                    <label className="form-label fw-semibold">Subject</label>
-                    <input type="text" className="form-control" name="subject" value={formData.subject} onChange={handleChange} placeholder="Enter subject" required />
-                  </div>
-                  <div className="col-12">
-                    <label className="form-label fw-semibold">Message</label>
-                    <textarea className="form-control" rows="6" name="message" value={formData.message} onChange={handleChange} placeholder="Type your message" required></textarea>
-                  </div>
-                  <div className="col-12 text-center">
-                    <button type="submit" className="btn btn-primary btn-lg rounded-pill px-5 shadow-sm" disabled={isSubmitting}>
-                      <i className="bi bi-send-fill me-2"></i>
-                      {isSubmitting ? 'Sending...' : 'Send Message'}
-                    </button>
-                  </div>
-                </form>
+          </div>
+
+          {/* Right Column - Contact Form */}
+          <div className="contact-form-wrapper">
+            {alert.message && (
+              <div className={`contact-alert ${alert.type}`} onClick={() => setAlert({ type: '', message: '' })}>
+                <span>{alert.message}</span>
+                <i className="bi bi-x"></i>
               </div>
-            </div>
+            )}
+            <form onSubmit={handleSubmit} className="contact-form">
+              <div className="form-row">
+                <div className="form-group">
+                  <input 
+                    type="text" 
+                    name="name" 
+                    value={formData.name} 
+                    onChange={handleChange} 
+                    placeholder="Your Name" 
+                    required 
+                  />
+                </div>
+                <div className="form-group">
+                  <input 
+                    type="email" 
+                    name="email" 
+                    value={formData.email} 
+                    onChange={handleChange} 
+                    placeholder="Your Email" 
+                    required 
+                  />
+                </div>
+              </div>
+              <div className="form-group">
+                <input 
+                  type="text" 
+                  name="subject" 
+                  value={formData.subject} 
+                  onChange={handleChange} 
+                  placeholder="Subject" 
+                  required 
+                />
+              </div>
+              <div className="form-group">
+                <textarea 
+                  name="message" 
+                  rows="5" 
+                  value={formData.message} 
+                  onChange={handleChange} 
+                  placeholder="Your Message" 
+                  required
+                ></textarea>
+              </div>
+              <button type="submit" className="send-btn" disabled={isSubmitting}>
+                <span>{isSubmitting ? 'Sending...' : 'Send Message'}</span>
+                <i className="bi bi-send"></i>
+              </button>
+            </form>
           </div>
         </div>
       </section>
