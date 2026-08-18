@@ -1,4 +1,6 @@
 import { useState, useEffect, useRef } from 'react'
+import { FaReact } from "react-icons/fa";
+
 
 function Portfolio() {
   const [activeFilter, setActiveFilter] = useState('all')
@@ -61,11 +63,13 @@ function Portfolio() {
     e.preventDefault()
     setIsSubmitting(true)
     try {
-      const response = await fetch('https://localhost:7059/api/contact', {
+      const response = await fetch(
+      `${import.meta.env.VITE_API_BASE_URL}/api/contact`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(formData)
       })
+      
       const result = await response.json()
       if (response.ok) {
         setAlert({ type: 'success', message: result.message || 'Message sent successfully!' })
@@ -101,7 +105,7 @@ function Portfolio() {
               <i className="bi bi-box-arrow-up-right"></i>
               <span>View My Work</span>
             </a>
-            <a href="/resume.pdf" className="btn-outline-custom" download>
+            <a href="public/images/Madesh_Ram-Resume.pdf" className="btn-outline-custom" download>
               <i className="bi bi-download"></i>
               <span>Download Resume</span>
             </a>
@@ -111,7 +115,7 @@ function Portfolio() {
             <div className="tech-badges">
               <span className="tech-badge"><i className="bi bi-gear"></i> .NET</span>
               <span className="tech-badge"><i className="bi bi-c-circle"></i> C#</span>
-              <span className="tech-badge"><i className="bi bi-react"></i> React</span>
+              <span className="tech-badge"><FaReact className="react-icon" /> React</span>
               <span className="tech-badge"><i className="bi bi-database"></i> SQL Server</span>
               <span className="tech-badge"><i className="bi bi-cloud"></i> Azure</span>
             </div>
@@ -320,7 +324,7 @@ function Portfolio() {
           <div className="skill-category-card">
             <div className="skill-category-header">
               <div className="skill-icon frontend">
-                <i className="bi bi-react"></i>
+                <FaReact className="react-icon" />
               </div>
               <h3 className="skill-category-title">Frontend Development</h3>
             </div>
@@ -390,6 +394,7 @@ function Portfolio() {
               <span className="skill-tag">Claude</span>
               <span className="skill-tag">Prompt Engineering</span>
               <span className="skill-tag">Workflow Automation</span>
+              <span className="skill-tag">OpenCode</span>
               <span className="skill-tag">OpenAI API (Learning)</span>
             </div>
           </div>
@@ -413,42 +418,6 @@ function Portfolio() {
           {/* Project 1 */}
           <div className="project-card-new">
             <div className="project-card-image">
-              <img src="/images/project-debt-collection.jpg" alt="Debt Collection Management System" />
-              <span className="project-badge enterprise">Enterprise</span>
-            </div>
-            <div className="project-card-content">
-              <h3 className="project-card-title">Debt Collection Management System</h3>
-              <p className="project-card-desc">Enterprise solution for case management, payment processing, compliance and reporting.</p>
-              <div className="project-card-tags">
-                <span className="project-tag">.NET Core</span>
-                <span className="project-tag">SQL Server</span>
-                <span className="project-tag">React</span>
-                <span className="project-tag">Azure</span>
-              </div>
-            </div>
-          </div>
-
-          {/* Project 2 */}
-          <div className="project-card-new">
-            <div className="project-card-image">
-              <img src="/images/project-report.jpg" alt="Automated Report Generation" />
-              <span className="project-badge internal">Internal Tool</span>
-            </div>
-            <div className="project-card-content">
-              <h3 className="project-card-title">Automated Report Generation</h3>
-              <p className="project-card-desc">Automated Windows Service application that generates and distributes reports to multiple clients.</p>
-              <div className="project-card-tags">
-                <span className="project-tag">C#</span>
-                <span className="project-tag">SQL Server</span>
-                <span className="project-tag">Windows Service</span>
-                <span className="project-tag">Azure</span>
-              </div>
-            </div>
-          </div>
-
-          {/* Project 3 */}
-          <div className="project-card-new">
-            <div className="project-card-image">
               <img src="/images/project-portfolio-img.jpg" alt="Portfolio Website" />
               <span className="project-badge personal">Personal</span>
             </div>
@@ -459,7 +428,24 @@ function Portfolio() {
                 <span className="project-tag">React</span>
                 <span className="project-tag">.NET Core</span>
                 <span className="project-tag">SMTP</span>
-                <span className="project-tag">Notify</span>
+                <span className="project-tag">Netlify</span>
+              </div>
+            </div>
+          </div>
+          {/* Project 2 */}
+          <div className="project-card-new">
+            <div className="project-card-image">
+              <img src="/images/project-ToolDesign-img.png" alt="Tool Design" />
+              <span className="project-badge personal">Business</span>
+            </div>
+            <div className="project-card-content">
+              <h3 className="project-card-title">Alpha Tool Tech Engineering</h3>
+              <p className="project-card-desc">A professional website for Alpha Tool Tech Engineering, showcasing precision tooling, injection mold solutions, and industry expertise. Built with responsive design to deliver a seamless experience.</p>
+              <div className="project-card-tags">
+                <span className="project-tag">React</span>
+                <span className="project-tag">.NET Core</span>
+                <span className="project-tag">SMTP</span>
+                <span className="project-tag">Netlify</span>
               </div>
             </div>
           </div>
@@ -480,7 +466,7 @@ function Portfolio() {
             <h1 className="resume-title-main">Resume</h1>
             <p className="resume-subtitle">My professional journey and educational background.</p>
           </div>
-          <a href="/resume.pdf" className="download-resume-btn-top" download>
+          <a href="public/images/Madesh_Ram-Resume.pdf" className="download-resume-btn-top" download>
             <i className="bi bi-download"></i>
             <span>Download Resume</span>
           </a>
@@ -634,7 +620,7 @@ function Portfolio() {
                 </div>
                 <div className="contact-item-content">
                   <span className="contact-item-label">LinkedIn</span>
-                  <a href="https://linkedin.com/in/madesh-ram" target="_blank" rel="noopener noreferrer" className="contact-item-value contact-link">linkedin.com/in/madesh-ram</a>
+                  <a href="https://www.linkedin.com/in/madesh-ram-8b2b72218" target="_blank" rel="noopener noreferrer" className="contact-item-value contact-link">linkedin.com/in/madesh-ram</a>
                 </div>
               </div>
 
@@ -644,7 +630,7 @@ function Portfolio() {
                 </div>
                 <div className="contact-item-content">
                   <span className="contact-item-label">GitHub</span>
-                  <a href="https://github.com/madeshram66" target="_blank" rel="noopener noreferrer" className="contact-item-value contact-link">github.com/madeshram66</a>
+                  <a href="https://github.com/maddy-hub515" target="_blank" rel="noopener noreferrer" className="contact-item-value contact-link">github.com/madeshram66</a>
                 </div>
               </div>
             </div>

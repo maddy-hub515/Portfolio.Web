@@ -68,7 +68,7 @@ function Sidebar({ activeSection, onNavigate }) {
 
         <div className="sidebar-divider"></div>
 
-        <a href="/resume.pdf" className="download-resume-btn" download>
+        <a href="public/images/Madesh_Ram-Resume.pdf" className="download-resume-btn" download>
           <i className="bi bi-download"></i>
           <span>Download Resume</span>
         </a>
