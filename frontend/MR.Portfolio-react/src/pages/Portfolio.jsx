@@ -1,84 +1,164 @@
-import { useState, useEffect, useRef } from 'react'
+import { useState, useEffect, useRef } from "react";
 
 function Portfolio() {
-  const [activeFilter, setActiveFilter] = useState('all')
-  const [selectedProject, setSelectedProject] = useState(null)
-  const [formData, setFormData] = useState({ name: '', email: '', subject: '', message: '' })
-  const [alert, setAlert] = useState({ type: '', message: '' })
-  const [isSubmitting, setIsSubmitting] = useState(false)
-  const progressBarsRef = useRef(null)
-  const countersRef = useRef(null)
+  const [activeFilter, setActiveFilter] = useState("all");
+  const [selectedProject, setSelectedProject] = useState(null);
+  const [formData, setFormData] = useState({
+    name: "",
+    email: "",
+    subject: "",
+    message: "",
+  });
+  const [alert, setAlert] = useState({ type: "", message: "" });
+  const [isSubmitting, setIsSubmitting] = useState(false);
+  const progressBarsRef = useRef(null);
+  const countersRef = useRef(null);
 
   useEffect(() => {
-    const counters = countersRef.current?.querySelectorAll('.counter')
+    const counters = countersRef.current?.querySelectorAll(".counter");
     if (counters) {
-      counters.forEach(counter => {
+      counters.forEach((counter) => {
         const updateCount = () => {
-          const target = +counter.getAttribute('data-target')
-          const count = +counter.innerText
-          const speed = 100
-          const increment = target / speed
+          const target = +counter.getAttribute("data-target");
+          const count = +counter.innerText;
+          const speed = 100;
+          const increment = target / speed;
           if (count < target) {
-            counter.innerText = Math.ceil(count + increment)
-            setTimeout(updateCount, 30)
+            counter.innerText = Math.ceil(count + increment);
+            setTimeout(updateCount, 30);
           } else {
-            counter.innerText = target
+            counter.innerText = target;
           }
-        }
-        updateCount()
-      })
+        };
+        updateCount();
+      });
     }
 
-    const progressBars = progressBarsRef.current?.querySelectorAll('.progress-bar')
+    const progressBars =
+      progressBarsRef.current?.querySelectorAll(".progress-bar");
     if (progressBars) {
-      progressBars.forEach(bar => {
-        const progress = bar.getAttribute('data-progress')
+      progressBars.forEach((bar) => {
+        const progress = bar.getAttribute("data-progress");
         setTimeout(() => {
-          bar.style.width = progress + '%'
-        }, 500)
-      })
+          bar.style.width = progress + "%";
+        }, 500);
+      });
     }
-  }, [])
+  }, []);
 
   const projects = [
-    { id: 1, title: 'Portfolio', category: 'web', image: '/images/project-portfolio-img.jpg', description: 'Designed and developed a responsive personal portfolio website to showcase projects, technical skills, and professional achievements.', link: 'https://madeshram-portfolio.onrender.com', linkText: 'Live Demo' },
-    { id: 2, title: 'SmartSolve AI', category: 'web', image: '/images/project-SmartSolveAI-img.jpg', description: 'Built a custom AI assistant capable of storing, retrieving, and summarizing solutions to organizational problems.', link: 'https://github.com/maddy-hub515/Smart-AI-Agent', linkText: 'GitHub' },
-    { id: 3, title: 'E-Commerce Website', category: 'web', image: '/images/project-web-img.jpg', description: 'Full-stack e-commerce platform with product catalog, shopping cart, and secure checkout functionality.', link: '#', linkText: 'View Project' },
-    { id: 4, title: 'Fitness Tracker App', category: 'mobile', image: '/images/project-mobile-app.jpg', description: 'Mobile application for tracking workouts, nutrition, and fitness goals with progress analytics.', link: '#', linkText: 'View Project' },
-    { id: 5, title: 'CMS Platform', category: 'web', image: '/images/project-cms.jpg', description: 'Content management system for blog publishing with admin dashboard and user management.', link: '#', linkText: 'View Project' },
-    { id: 6, title: 'Product Branding', category: 'branding', image: '/images/project-branding.jpg', description: 'Brand identity design for a tech startup including logo, color palette, and guidelines.', link: '#', linkText: 'View Project' },
-    { id: 7, title: 'Admin Dashboard', category: 'web', image: '/images/project-dashboard.jpg', description: 'Admin panel for managing application data with charts, tables, and user roles.', link: '#', linkText: 'View Project' }
-  ]
+    {
+      id: 1,
+      title: "Portfolio",
+      category: "web",
+      image: "/images/project-portfolio-img.jpg",
+      description:
+        "Designed and developed a responsive personal portfolio website to showcase projects, technical skills, and professional achievements.",
+      link: "https://madeshram-portfolio.onrender.com",
+      linkText: "Live Demo",
+    },
+    {
+      id: 2,
+      title: "SmartSolve AI",
+      category: "web",
+      image: "/images/project-SmartSolveAI-img.jpg",
+      description:
+        "Built a custom AI assistant capable of storing, retrieving, and summarizing solutions to organizational problems.",
+      link: "https://github.com/maddy-hub515/Smart-AI-Agent",
+      linkText: "GitHub",
+    },
+    {
+      id: 3,
+      title: "E-Commerce Website",
+      category: "web",
+      image: "/images/project-web-img.jpg",
+      description:
+        "Full-stack e-commerce platform with product catalog, shopping cart, and secure checkout functionality.",
+      link: "#",
+      linkText: "View Project",
+    },
+    {
+      id: 4,
+      title: "Fitness Tracker App",
+      category: "mobile",
+      image: "/images/project-mobile-app.jpg",
+      description:
+        "Mobile application for tracking workouts, nutrition, and fitness goals with progress analytics.",
+      link: "#",
+      linkText: "View Project",
+    },
+    {
+      id: 5,
+      title: "CMS Platform",
+      category: "web",
+      image: "/images/project-cms.jpg",
+      description:
+        "Content management system for blog publishing with admin dashboard and user management.",
+      link: "#",
+      linkText: "View Project",
+    },
+    {
+      id: 6,
+      title: "Product Branding",
+      category: "branding",
+      image: "/images/project-branding.jpg",
+      description:
+        "Brand identity design for a tech startup including logo, color palette, and guidelines.",
+      link: "#",
+      linkText: "View Project",
+    },
+    {
+      id: 7,
+      title: "Admin Dashboard",
+      category: "web",
+      image: "/images/project-dashboard.jpg",
+      description:
+        "Admin panel for managing application data with charts, tables, and user roles.",
+      link: "#",
+      linkText: "View Project",
+    },
+  ];
 
-  const filteredProjects = projects.filter(project => activeFilter === 'all' || project.category === activeFilter)
+  const filteredProjects = projects.filter(
+    (project) => activeFilter === "all" || project.category === activeFilter,
+  );
 
   const handleChange = (e) => {
-    const { name, value } = e.target
-    setFormData(prev => ({ ...prev, [name]: value }))
-  }
+    const { name, value } = e.target;
+    setFormData((prev) => ({ ...prev, [name]: value }));
+  };
 
   const handleSubmit = async (e) => {
-    e.preventDefault()
-    setIsSubmitting(true)
+    e.preventDefault();
+    setIsSubmitting(true);
     try {
-      const response = await fetch('https://localhost:7059/api/contact', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify(formData)
-      })
-      const result = await response.json()
+      const response = await fetch("https://localhost:7059/api/contact", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(formData),
+      });
+      const result = await response.json();
       if (response.ok) {
-        setAlert({ type: 'success', message: result.message || 'Message sent successfully!' })
-        setFormData({ name: '', email: '', subject: '', message: '' })
+        setAlert({
+          type: "success",
+          message: result.message || "Message sent successfully!",
+        });
+        setFormData({ name: "", email: "", subject: "", message: "" });
       } else {
-        setAlert({ type: 'danger', message: result.message || 'Something went wrong.' })
+        setAlert({
+          type: "danger",
+          message: result.message || "Something went wrong.",
+        });
       }
     } catch (error) {
-      setAlert({ type: 'danger', message: 'Unable to connect to server. Please try again later.' })
+      setAlert({
+        type: "danger",
+        message: "Unable to connect to server. Please try again later.",
+      });
     } finally {
-      setIsSubmitting(false)
+      setIsSubmitting(false);
     }
-  }
+  };
 
   return (
     <>
@@ -94,7 +174,9 @@ function Portfolio() {
           <h2 className="hero-title">Software Engineer</h2>
           <h3 className="hero-subtitle">.NET Full-Stack Developer</h3>
           <p className="hero-description">
-            I build scalable and secure web applications using C#, .NET Core, ASP.NET, React, SQL Server, and Azure. Turning ideas into real-world solutions.
+            I build scalable and secure web applications using C#, .NET Core,
+            ASP.NET, React, SQL Server, and Azure. Turning ideas into real-world
+            solutions.
           </p>
           <div className="hero-buttons">
             <a href="#projects" className="btn-primary-custom">
@@ -109,11 +191,21 @@ function Portfolio() {
           <div className="tech-stack">
             <span className="tech-label">Tech I work with:</span>
             <div className="tech-badges">
-              <span className="tech-badge"><i className="bi bi-gear"></i> .NET</span>
-              <span className="tech-badge"><i className="bi bi-c-circle"></i> C#</span>
-              <span className="tech-badge"><i className="bi bi-react"></i> React</span>
-              <span className="tech-badge"><i className="bi bi-database"></i> SQL Server</span>
-              <span className="tech-badge"><i className="bi bi-cloud"></i> Azure</span>
+              <span className="tech-badge">
+                <i className="bi bi-gear"></i> .NET
+              </span>
+              <span className="tech-badge">
+                <i className="bi bi-c-circle"></i> C#
+              </span>
+              <span className="tech-badge">
+                <i className="bi bi-code-slash"></i> React
+              </span>
+              <span className="tech-badge">
+                <i className="bi bi-database"></i> SQL Server
+              </span>
+              <span className="tech-badge">
+                <i className="bi bi-cloud"></i> Azure
+              </span>
             </div>
           </div>
         </div>
@@ -155,7 +247,9 @@ function Portfolio() {
             <div className="stat-content">
               <h4 className="stat-number">60%</h4>
               <p className="stat-label">Query Performance Improvement</p>
-              <p className="stat-desc">Through optimization and best practices</p>
+              <p className="stat-desc">
+                Through optimization and best practices
+              </p>
             </div>
           </div>
         </div>
@@ -168,21 +262,23 @@ function Portfolio() {
             <span className="about-label">ABOUT ME</span>
             <h1 className="about-title">About Me</h1>
             <div className="about-underline"></div>
-            
+
             <div className="about-description">
               <p>
-                I'm a Software Engineer with 3+ years of experience in building enterprise
-                applications using scalable solutions and modern technologies.
+                I'm a Software Engineer with 3+ years of experience in building
+                enterprise applications using scalable solutions and modern
+                technologies.
               </p>
               <p>
-                I specialize in developing secure REST APIs, building responsive user
-                interfaces, optimizing database queries, and deploying applications on
-                cloud platforms. I am passionate about writing clean code and creating
-                impactful digital experiences.
+                I specialize in developing secure REST APIs, building responsive
+                user interfaces, optimizing database queries, and deploying
+                applications on cloud platforms. I am passionate about writing
+                clean code and creating impactful digital experiences.
               </p>
               <p>
                 I enjoy solving complex problems, learning new technologies, and
-                collaborating with amazing teams to deliver products that matter.
+                collaborating with amazing teams to deliver products that
+                matter.
               </p>
             </div>
 
@@ -246,7 +342,11 @@ function Portfolio() {
 
           <div className="about-image-section">
             <div className="about-image-wrapper">
-              <img src="/images/Madesh_about_img.JPG" alt="Madesh Ram" className="about-profile-img" />
+              <img
+                src="/images/Madesh_about_img.JPG"
+                alt="Madesh Ram"
+                className="about-profile-img"
+              />
               <div className="about-image-overlay">
                 <span className="signature-text">Madesh Ram</span>
                 <span className="tagline-text">BUILD • LEARN • GROW</span>
@@ -401,9 +501,16 @@ function Portfolio() {
         <div className="projects-header">
           <div className="projects-header-content">
             <h1 className="projects-title">Featured Projects</h1>
-            <p className="projects-subtitle">Some of the projects I've worked on.</p>
+            <p className="projects-subtitle">
+              Some of the projects I've worked on.
+            </p>
           </div>
-          <a href="https://github.com/maddy-hub515" className="github-btn" target="_blank" rel="noopener noreferrer">
+          <a
+            href="https://github.com/maddy-hub515"
+            className="github-btn"
+            target="_blank"
+            rel="noopener noreferrer"
+          >
             <i className="bi bi-github"></i>
             <span>View All on GitHub</span>
           </a>
@@ -413,12 +520,20 @@ function Portfolio() {
           {/* Project 1 */}
           <div className="project-card-new">
             <div className="project-card-image">
-              <img src="/images/project-debt-collection.jpg" alt="Debt Collection Management System" />
+              <img
+                src="/images/project-debt-collection.jpg"
+                alt="Debt Collection Management System"
+              />
               <span className="project-badge enterprise">Enterprise</span>
             </div>
             <div className="project-card-content">
-              <h3 className="project-card-title">Debt Collection Management System</h3>
-              <p className="project-card-desc">Enterprise solution for case management, payment processing, compliance and reporting.</p>
+              <h3 className="project-card-title">
+                Debt Collection Management System
+              </h3>
+              <p className="project-card-desc">
+                Enterprise solution for case management, payment processing,
+                compliance and reporting.
+              </p>
               <div className="project-card-tags">
                 <span className="project-tag">.NET Core</span>
                 <span className="project-tag">SQL Server</span>
@@ -431,12 +546,20 @@ function Portfolio() {
           {/* Project 2 */}
           <div className="project-card-new">
             <div className="project-card-image">
-              <img src="/images/project-report.jpg" alt="Automated Report Generation" />
+              <img
+                src="/images/project-report.jpg"
+                alt="Automated Report Generation"
+              />
               <span className="project-badge internal">Internal Tool</span>
             </div>
             <div className="project-card-content">
-              <h3 className="project-card-title">Automated Report Generation</h3>
-              <p className="project-card-desc">Automated Windows Service application that generates and distributes reports to multiple clients.</p>
+              <h3 className="project-card-title">
+                Automated Report Generation
+              </h3>
+              <p className="project-card-desc">
+                Automated Windows Service application that generates and
+                distributes reports to multiple clients.
+              </p>
               <div className="project-card-tags">
                 <span className="project-tag">C#</span>
                 <span className="project-tag">SQL Server</span>
@@ -449,12 +572,18 @@ function Portfolio() {
           {/* Project 3 */}
           <div className="project-card-new">
             <div className="project-card-image">
-              <img src="/images/project-portfolio-img.jpg" alt="Portfolio Website" />
+              <img
+                src="/images/project-portfolio-img.jpg"
+                alt="Portfolio Website"
+              />
               <span className="project-badge personal">Personal</span>
             </div>
             <div className="project-card-content">
               <h3 className="project-card-title">Portfolio Website</h3>
-              <p className="project-card-desc">My personal portfolio built with React and .NET Core API with contact form and email integration.</p>
+              <p className="project-card-desc">
+                My personal portfolio built with React and .NET Core API with
+                contact form and email integration.
+              </p>
               <div className="project-card-tags">
                 <span className="project-tag">React</span>
                 <span className="project-tag">.NET Core</span>
@@ -478,7 +607,9 @@ function Portfolio() {
         <div className="resume-header">
           <div className="resume-header-content">
             <h1 className="resume-title-main">Resume</h1>
-            <p className="resume-subtitle">My professional journey and educational background.</p>
+            <p className="resume-subtitle">
+              My professional journey and educational background.
+            </p>
           </div>
           <a href="/resume.pdf" className="download-resume-btn-top" download>
             <i className="bi bi-download"></i>
@@ -500,13 +631,28 @@ function Portfolio() {
               <div className="resume-block-content">
                 <div className="experience-item">
                   <h3 className="experience-role">Software Engineer II</h3>
-                  <p className="experience-company">Logic Valley | June 2023 – Present</p>
+                  <p className="experience-company">
+                    Logic Valley | June 2023 – Present
+                  </p>
                   <ul className="experience-list">
-                    <li>Building and maintaining enterprise applications for debt collection, supporting 20+ client environments using C#, .NET Core, ASP.NET MVC, React.js, and MS SQL Server.</li>
-                    <li>Developing REST APIs, business modules, and integrating Azure services.</li>
-                    <li>Optimizing SQL server performance and ensuring data integrity.</li>
+                    <li>
+                      Building and maintaining enterprise applications for debt
+                      collection, supporting 20+ client environments using C#,
+                      .NET Core, ASP.NET MVC, React.js, and MS SQL Server.
+                    </li>
+                    <li>
+                      Developing REST APIs, business modules, and integrating
+                      Azure services.
+                    </li>
+                    <li>
+                      Optimizing SQL server performance and ensuring data
+                      integrity.
+                    </li>
                     <li>Managing CI/CD pipelines using Azure DevOps.</li>
-                    <li>Supporting production environments across 20+ client environments.</li>
+                    <li>
+                      Supporting production environments across 20+ client
+                      environments.
+                    </li>
                   </ul>
                 </div>
               </div>
@@ -522,8 +668,12 @@ function Portfolio() {
               </div>
               <div className="resume-block-content">
                 <div className="education-item">
-                  <h3 className="education-degree">Bachelor of Commerce (B.Com)</h3>
-                  <p className="education-college">Sri Vani Vidyalaya/Vidhyaa Arts and Science College</p>
+                  <h3 className="education-degree">
+                    Bachelor of Commerce (B.Com)
+                  </h3>
+                  <p className="education-college">
+                    Sri Vani Vidyalaya/Vidhyaa Arts and Science College
+                  </p>
                   <p className="education-period">2019 – 2022 | 84%</p>
                 </div>
               </div>
@@ -542,7 +692,14 @@ function Portfolio() {
               </div>
               <div className="resume-block-content">
                 <p className="summary-text">
-                  Software Engineer with 3+ years of experience building enterprise applications. Skilled in scalable solutions using C#, .NET Core, ASP.NET MVC, React.js, and MS SQL Server. Experienced in designing secure REST APIs, optimizing SQL performance, and deploying cloud-based solutions on Azure. Passionate about leveraging AI coding assistants (GitHub Copilot, ChatGPT) to accelerate development without compromising quality.
+                  Software Engineer with 3+ years of experience building
+                  enterprise applications. Skilled in scalable solutions using
+                  C#, .NET Core, ASP.NET MVC, React.js, and MS SQL Server.
+                  Experienced in designing secure REST APIs, optimizing SQL
+                  performance, and deploying cloud-based solutions on Azure.
+                  Passionate about leveraging AI coding assistants (GitHub
+                  Copilot, ChatGPT) to accelerate development without
+                  compromising quality.
                 </p>
               </div>
             </div>
@@ -587,14 +744,15 @@ function Portfolio() {
       {/* CONTACT SECTION */}
       <section id="contact" className="contact-section">
         <div className="contact-bg-overlay"></div>
-        
+
         <div className="contact-container">
           {/* Left Column - Contact Info */}
           <div className="contact-info">
             <h2 className="contact-title">Let's Connect</h2>
             <div className="contact-title-underline"></div>
             <p className="contact-subtitle">
-              I'm open to discussing new opportunities, interesting projects, or just having a friendly chat about technology.
+              I'm open to discussing new opportunities, interesting projects, or
+              just having a friendly chat about technology.
             </p>
 
             <div className="contact-details">
@@ -604,7 +762,9 @@ function Portfolio() {
                 </div>
                 <div className="contact-item-content">
                   <span className="contact-item-label">Email</span>
-                  <span className="contact-item-value">maddymaddy2679@gmail.com</span>
+                  <span className="contact-item-value">
+                    maddymaddy2679@gmail.com
+                  </span>
                 </div>
               </div>
 
@@ -624,7 +784,9 @@ function Portfolio() {
                 </div>
                 <div className="contact-item-content">
                   <span className="contact-item-label">Location</span>
-                  <span className="contact-item-value">Chennai, Tamil Nadu, India</span>
+                  <span className="contact-item-value">
+                    Chennai, Tamil Nadu, India
+                  </span>
                 </div>
               </div>
 
@@ -634,7 +796,14 @@ function Portfolio() {
                 </div>
                 <div className="contact-item-content">
                   <span className="contact-item-label">LinkedIn</span>
-                  <a href="https://linkedin.com/in/madesh-ram" target="_blank" rel="noopener noreferrer" className="contact-item-value contact-link">linkedin.com/in/madesh-ram</a>
+                  <a
+                    href="https://linkedin.com/in/madesh-ram"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="contact-item-value contact-link"
+                  >
+                    linkedin.com/in/madesh-ram
+                  </a>
                 </div>
               </div>
 
@@ -644,7 +813,14 @@ function Portfolio() {
                 </div>
                 <div className="contact-item-content">
                   <span className="contact-item-label">GitHub</span>
-                  <a href="https://github.com/madeshram66" target="_blank" rel="noopener noreferrer" className="contact-item-value contact-link">github.com/madeshram66</a>
+                  <a
+                    href="https://github.com/madeshram66"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="contact-item-value contact-link"
+                  >
+                    github.com/madeshram66
+                  </a>
                 </div>
               </div>
             </div>
@@ -653,7 +829,10 @@ function Portfolio() {
           {/* Right Column - Contact Form */}
           <div className="contact-form-wrapper">
             {alert.message && (
-              <div className={`contact-alert ${alert.type}`} onClick={() => setAlert({ type: '', message: '' })}>
+              <div
+                className={`contact-alert ${alert.type}`}
+                onClick={() => setAlert({ type: "", message: "" })}
+              >
                 <span>{alert.message}</span>
                 <i className="bi bi-x"></i>
               </div>
@@ -661,48 +840,52 @@ function Portfolio() {
             <form onSubmit={handleSubmit} className="contact-form">
               <div className="form-row">
                 <div className="form-group">
-                  <input 
-                    type="text" 
-                    name="name" 
-                    value={formData.name} 
-                    onChange={handleChange} 
-                    placeholder="Your Name" 
-                    required 
+                  <input
+                    type="text"
+                    name="name"
+                    value={formData.name}
+                    onChange={handleChange}
+                    placeholder="Your Name"
+                    required
                   />
                 </div>
                 <div className="form-group">
-                  <input 
-                    type="email" 
-                    name="email" 
-                    value={formData.email} 
-                    onChange={handleChange} 
-                    placeholder="Your Email" 
-                    required 
+                  <input
+                    type="email"
+                    name="email"
+                    value={formData.email}
+                    onChange={handleChange}
+                    placeholder="Your Email"
+                    required
                   />
                 </div>
               </div>
               <div className="form-group">
-                <input 
-                  type="text" 
-                  name="subject" 
-                  value={formData.subject} 
-                  onChange={handleChange} 
-                  placeholder="Subject" 
-                  required 
+                <input
+                  type="text"
+                  name="subject"
+                  value={formData.subject}
+                  onChange={handleChange}
+                  placeholder="Subject"
+                  required
                 />
               </div>
               <div className="form-group">
-                <textarea 
-                  name="message" 
-                  rows="5" 
-                  value={formData.message} 
-                  onChange={handleChange} 
-                  placeholder="Your Message" 
+                <textarea
+                  name="message"
+                  rows="5"
+                  value={formData.message}
+                  onChange={handleChange}
+                  placeholder="Your Message"
                   required
                 ></textarea>
               </div>
-              <button type="submit" className="send-btn" disabled={isSubmitting}>
-                <span>{isSubmitting ? 'Sending...' : 'Send Message'}</span>
+              <button
+                type="submit"
+                className="send-btn"
+                disabled={isSubmitting}
+              >
+                <span>{isSubmitting ? "Sending..." : "Send Message"}</span>
                 <i className="bi bi-send"></i>
               </button>
             </form>
@@ -710,7 +893,7 @@ function Portfolio() {
         </div>
       </section>
     </>
-  )
+  );
 }
 
-export default Portfolio
+export default Portfolio;
