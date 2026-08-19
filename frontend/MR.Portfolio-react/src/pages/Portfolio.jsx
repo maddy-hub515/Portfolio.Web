@@ -1,10 +1,5 @@
-<<<<<<< HEAD
 import { useState, useEffect, useRef } from "react";
-=======
-import { useState, useEffect, useRef } from 'react'
 import { FaReact } from "react-icons/fa";
-
->>>>>>> d1d412f322f1a36a20504388b877f3aac2507cee
 
 function Portfolio() {
   const [activeFilter, setActiveFilter] = useState("all");
@@ -138,23 +133,16 @@ function Portfolio() {
     e.preventDefault();
     setIsSubmitting(true);
     try {
-<<<<<<< HEAD
-      const response = await fetch("https://localhost:7059/api/contact", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(formData),
-      });
-      const result = await response.json();
-=======
       const response = await fetch(
-      `${import.meta.env.VITE_API_BASE_URL}/api/contact`, {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify(formData)
-      })
-      
-      const result = await response.json()
->>>>>>> d1d412f322f1a36a20504388b877f3aac2507cee
+        `${import.meta.env.VITE_API_BASE_URL}/api/contact`,
+        {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify(formData),
+        },
+      );
+
+      const result = await response.json();
       if (response.ok) {
         setAlert({
           type: "success",
@@ -200,7 +188,11 @@ function Portfolio() {
               <i className="bi bi-box-arrow-up-right"></i>
               <span>View My Work</span>
             </a>
-            <a href="public/images/Madesh_Ram-Resume.pdf" className="btn-outline-custom" download>
+            <a
+              href="public/images/Madesh_Ram-Resume.pdf"
+              className="btn-outline-custom"
+              download
+            >
               <i className="bi bi-download"></i>
               <span>Download Resume</span>
             </a>
@@ -208,7 +200,6 @@ function Portfolio() {
           <div className="tech-stack">
             <span className="tech-label">Tech I work with:</span>
             <div className="tech-badges">
-<<<<<<< HEAD
               <span className="tech-badge">
                 <i className="bi bi-gear"></i> .NET
               </span>
@@ -216,7 +207,7 @@ function Portfolio() {
                 <i className="bi bi-c-circle"></i> C#
               </span>
               <span className="tech-badge">
-                <i className="bi bi-code-slash"></i> React
+                <FaReact className="react-icon" /> React
               </span>
               <span className="tech-badge">
                 <i className="bi bi-database"></i> SQL Server
@@ -224,13 +215,6 @@ function Portfolio() {
               <span className="tech-badge">
                 <i className="bi bi-cloud"></i> Azure
               </span>
-=======
-              <span className="tech-badge"><i className="bi bi-gear"></i> .NET</span>
-              <span className="tech-badge"><i className="bi bi-c-circle"></i> C#</span>
-              <span className="tech-badge"><FaReact className="react-icon" /> React</span>
-              <span className="tech-badge"><i className="bi bi-database"></i> SQL Server</span>
-              <span className="tech-badge"><i className="bi bi-cloud"></i> Azure</span>
->>>>>>> d1d412f322f1a36a20504388b877f3aac2507cee
             </div>
           </div>
         </div>
@@ -546,66 +530,14 @@ function Portfolio() {
           {/* Project 1 */}
           <div className="project-card-new">
             <div className="project-card-image">
-<<<<<<< HEAD
-              <img
-                src="/images/project-debt-collection.jpg"
-                alt="Debt Collection Management System"
-              />
-              <span className="project-badge enterprise">Enterprise</span>
-            </div>
-            <div className="project-card-content">
-              <h3 className="project-card-title">
-                Debt Collection Management System
-              </h3>
-              <p className="project-card-desc">
-                Enterprise solution for case management, payment processing,
-                compliance and reporting.
-              </p>
-              <div className="project-card-tags">
-                <span className="project-tag">.NET Core</span>
-                <span className="project-tag">SQL Server</span>
-                <span className="project-tag">React</span>
-                <span className="project-tag">Azure</span>
-              </div>
-            </div>
-          </div>
-
-          {/* Project 2 */}
-          <div className="project-card-new">
-            <div className="project-card-image">
-              <img
-                src="/images/project-report.jpg"
-                alt="Automated Report Generation"
-              />
-              <span className="project-badge internal">Internal Tool</span>
-            </div>
-            <div className="project-card-content">
-              <h3 className="project-card-title">
-                Automated Report Generation
-              </h3>
-              <p className="project-card-desc">
-                Automated Windows Service application that generates and
-                distributes reports to multiple clients.
-              </p>
-              <div className="project-card-tags">
-                <span className="project-tag">C#</span>
-                <span className="project-tag">SQL Server</span>
-                <span className="project-tag">Windows Service</span>
-                <span className="project-tag">Azure</span>
-              </div>
-            </div>
-          </div>
-
-          {/* Project 3 */}
-          <div className="project-card-new">
-            <div className="project-card-image">
               <img
                 src="/images/project-portfolio-img.jpg"
                 alt="Portfolio Website"
               />
-=======
-              <img src="/images/project-portfolio-img.jpg" alt="Portfolio Website" />
->>>>>>> d1d412f322f1a36a20504388b877f3aac2507cee
+              <img
+                src="/images/project-portfolio-img.jpg"
+                alt="Portfolio Website"
+              />
               <span className="project-badge personal">Personal</span>
             </div>
             <div className="project-card-content">
@@ -629,8 +561,15 @@ function Portfolio() {
               <span className="project-badge personal">Business</span>
             </div>
             <div className="project-card-content">
-              <h3 className="project-card-title">Alpha Tool Tech Engineering</h3>
-              <p className="project-card-desc">A professional website for Alpha Tool Tech Engineering, showcasing precision tooling, injection mold solutions, and industry expertise. Built with responsive design to deliver a seamless experience.</p>
+              <h3 className="project-card-title">
+                Alpha Tool Tech Engineering
+              </h3>
+              <p className="project-card-desc">
+                A professional website for Alpha Tool Tech Engineering,
+                showcasing precision tooling, injection mold solutions, and
+                industry expertise. Built with responsive design to deliver a
+                seamless experience.
+              </p>
               <div className="project-card-tags">
                 <span className="project-tag">React</span>
                 <span className="project-tag">.NET Core</span>
@@ -658,7 +597,11 @@ function Portfolio() {
               My professional journey and educational background.
             </p>
           </div>
-          <a href="public/images/Madesh_Ram-Resume.pdf" className="download-resume-btn-top" download>
+          <a
+            href="public/images/Madesh_Ram-Resume.pdf"
+            className="download-resume-btn-top"
+            download
+          >
             <i className="bi bi-download"></i>
             <span>Download Resume</span>
           </a>
@@ -843,18 +786,14 @@ function Portfolio() {
                 </div>
                 <div className="contact-item-content">
                   <span className="contact-item-label">LinkedIn</span>
-<<<<<<< HEAD
                   <a
-                    href="https://linkedin.com/in/madesh-ram"
+                    href="https://www.linkedin.com/in/madesh-ram-8b2b72218"
                     target="_blank"
                     rel="noopener noreferrer"
                     className="contact-item-value contact-link"
                   >
                     linkedin.com/in/madesh-ram
                   </a>
-=======
-                  <a href="https://www.linkedin.com/in/madesh-ram-8b2b72218" target="_blank" rel="noopener noreferrer" className="contact-item-value contact-link">linkedin.com/in/madesh-ram</a>
->>>>>>> d1d412f322f1a36a20504388b877f3aac2507cee
                 </div>
               </div>
 
@@ -864,18 +803,14 @@ function Portfolio() {
                 </div>
                 <div className="contact-item-content">
                   <span className="contact-item-label">GitHub</span>
-<<<<<<< HEAD
                   <a
-                    href="https://github.com/madeshram66"
+                    href="https://github.com/maddy-hub515"
                     target="_blank"
                     rel="noopener noreferrer"
                     className="contact-item-value contact-link"
                   >
                     github.com/madeshram66
                   </a>
-=======
-                  <a href="https://github.com/maddy-hub515" target="_blank" rel="noopener noreferrer" className="contact-item-value contact-link">github.com/madeshram66</a>
->>>>>>> d1d412f322f1a36a20504388b877f3aac2507cee
                 </div>
               </div>
             </div>
