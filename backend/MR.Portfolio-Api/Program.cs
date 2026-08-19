@@ -8,6 +8,18 @@ var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddOpenApi();
 builder.Services.AddOpenApiDocument();
 
+// Add CORS
+builder.Services.AddCors(options =>
+{
+    options.AddPolicy("AllowReactApp", policy =>
+    {
+        policy
+            .WithOrigins("http://localhost:5173")
+            .AllowAnyHeader()
+            .AllowAnyMethod();
+    });
+});
+
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.
@@ -17,7 +29,10 @@ if (app.Environment.IsDevelopment())
     app.UseSwaggerUi();
 }
 
-app.UseHttpsRedirection();
+// CORS must be before the API endpoints
+app.UseCors("AllowReactApp");
+
+//app.UseHttpsRedirection();
 
 app.MapPost("/api/contact", async (ContactFormModel model, IConfiguration configuration) =>
 {
