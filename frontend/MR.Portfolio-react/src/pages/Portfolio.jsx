@@ -1,58 +1,441 @@
-import { useState, useEffect, useRef } from 'react'
+import { useState, useEffect, useCallback } from 'react'
 import { FaReact } from "react-icons/fa";
+import { useReducedMotion, useInView, useCountUp, RevealSection } from '../hooks/useAnimations'
 
+const featuredProjects = [
+  {
+    id: 'portfolio',
+    title: 'Portfolio Website',
+    category: 'Personal',
+    image: '/images/project-portfolio-img.jpg',
+    description: 'My personal portfolio built with React and .NET Core API with contact form and email integration.',
+    technologies: ['React', '.NET Core', 'SMTP', 'Netlify'],
+    liveUrl: 'https://madeshram-portfolio.onrender.com',
+    githubUrl: 'https://github.com/maddy-hub515',
+  },
+  {
+    id: 'alpha-tool',
+    title: 'Alpha Tool Tech Engineering',
+    category: 'Business',
+    image: '/images/project-ToolDesign-img.png',
+    description: 'A professional website for Alpha Tool Tech Engineering, showcasing precision tooling, injection mold solutions, and industry expertise. Built with responsive design to deliver a seamless experience.',
+    technologies: ['React', '.NET Core', 'SMTP', 'Netlify'],
+    liveUrl: null,
+    githubUrl: 'https://github.com/maddy-hub515',
+  },
+]
+
+const currentlyBuildingProjects = [
+  {
+    id: 'ai-sdlc',
+    title: 'AI SDLC Agent',
+    category: 'AI / Software Engineering',
+    status: 'In Development',
+    description: 'An AI-powered SDLC agent designed to automate software development workflows from requirement analysis through testing and deployment.',
+    technologies: ['AI Agents', '.NET 8', 'C#', 'Azure DevOps', 'Git', 'LLM', 'CI/CD', 'Testing'],
+    liveUrl: null,
+    githubUrl: null,
+    details: {
+      capabilities: [
+        'Requirement analysis',
+        'Acceptance criteria generation',
+        'Dependency identification',
+        'Repository understanding',
+        'Codebase analysis',
+        'Implementation planning',
+        'Git branch creation',
+        'AI-assisted code generation',
+        'Test generation',
+        'Automated test execution',
+        'Failure diagnosis',
+        'Self-healing development loop',
+        'Pull request generation',
+        'CI/CD integration',
+        'Deployment automation',
+        'Deployment validation',
+        'Human approval gates',
+      ],
+      architecture: [
+        'Requirement',
+        'AI Orchestrator',
+        'Requirement Analyzer',
+        'Azure DevOps',
+        'Repository Analyzer',
+        'Implementation Planner',
+        'Code Agent',
+        'Test Agent',
+        'Test Execution',
+        'Failure Analyzer',
+        'Code Fix',
+        'Retest',
+        'Pull Request',
+        'CI/CD',
+        'Deployment',
+      ],
+      description: 'The agent is being designed to process software requirements, generate Azure DevOps user stories and tasks, analyze the existing repository, understand the relevant codebase, create development branches, generate an implementation plan, implement code changes, generate and execute tests, analyze failures, iteratively modify the code, and prepare the solution for CI/CD deployment.',
+    },
+  },
+  {
+    id: 'ai-knowledge',
+    title: 'Private AI Knowledge Assistant',
+    category: 'AI / RAG',
+    status: 'In Development',
+    description: 'A private AI knowledge assistant that allows users to upload their own documents and datasets and interact with their information through natural-language conversations.',
+    technologies: ['LLM', 'RAG', 'Embeddings', '.NET', 'React', 'Vector Search', 'AI'],
+    liveUrl: null,
+    githubUrl: null,
+    details: {
+      capabilities: [
+        'Document upload',
+        'PDF processing',
+        'TXT processing',
+        'CSV / JSON data ingestion',
+        'Text extraction',
+        'Text chunking',
+        'Embeddings',
+        'Vector search',
+        'Retrieval-Augmented Generation (RAG)',
+        'Conversational chat',
+        'Conversation history',
+        'Source citations',
+        'Multiple knowledge bases',
+        'Document management',
+        'Semantic search',
+        'Context-aware answers',
+        'Model selection',
+        'Chat sessions',
+        'Data isolation',
+      ],
+      architecture: [
+        'Documents',
+        'Ingestion',
+        'Text Extraction',
+        'Chunking',
+        'Embeddings',
+        'Vector Store',
+        'Retriever',
+        'Relevant Context',
+        'LLM',
+        'Answer + Sources',
+      ],
+      description: 'The system is being designed to process uploaded data, extract and chunk content, generate embeddings, store searchable representations, retrieve relevant context, and use an LLM to generate contextual responses based on the user\'s own knowledge base.',
+    },
+  },
+  {
+    id: 'youtube-agent',
+    title: 'YouTube AI Content Agent',
+    category: 'AI / Automation',
+    status: 'In Development',
+    description: 'An AI-powered content automation agent designed to streamline the end-to-end YouTube publishing workflow, from content preparation and metadata generation to video and Shorts publishing.',
+    technologies: ['AI', 'LLM', 'YouTube API', 'Automation', 'React', '.NET'],
+    liveUrl: null,
+    githubUrl: null,
+    details: {
+      capabilities: [
+        'Content planning',
+        'Script generation / assistance',
+        'Title generation',
+        'Description generation',
+        'Tags and metadata generation',
+        'Thumbnail and asset management',
+        'Video processing',
+        'Shorts preparation',
+        'YouTube upload automation',
+        'Scheduled publishing',
+        'Playlist management',
+        'Publishing status tracking',
+        'Upload failure and retry handling',
+        'Content history',
+        'Analytics integration',
+      ],
+      architecture: [
+        'Content Idea',
+        'AI Content Planning',
+        'Script / Metadata',
+        'Video / Short Processing',
+        'Thumbnail / Assets',
+        'YouTube API',
+        'Upload',
+        'Schedule / Publish',
+        'Status Tracking',
+        'Analytics',
+      ],
+      description: 'The system is being designed to assist with content planning, script preparation, title and description generation, thumbnail and asset management, video processing, YouTube uploads, scheduled publishing, publishing status tracking, and post-publishing workflows.',
+    },
+  },
+]
+
+function ProjectStatusBadge({ status }) {
+  return (
+    <span className="project-status-badge">
+      <span className="status-dot"></span>
+      {status}
+    </span>
+  )
+}
+
+function ProjectActions({ liveUrl, githubUrl }) {
+  const hasLive = !!liveUrl
+  const hasGithub = !!githubUrl
+
+  if (!hasLive && !hasGithub) return null
+
+  return (
+    <div className="project-card-actions">
+      {hasLive && (
+        <a
+          href={liveUrl}
+          target="_blank"
+          rel="noopener noreferrer"
+          className="project-action-btn project-action-live"
+          aria-label="View Live Demo"
+        >
+          <i className="bi bi-box-arrow-up-right"></i>
+          <span>Live Demo</span>
+        </a>
+      )}
+      {hasGithub && (
+        <a
+          href={githubUrl}
+          target="_blank"
+          rel="noopener noreferrer"
+          className="project-action-btn project-action-github"
+          aria-label="View on GitHub"
+        >
+          <i className="bi bi-github"></i>
+          <span>GitHub</span>
+        </a>
+      )}
+    </div>
+  )
+}
+
+function ImageOverlay({ liveUrl }) {
+  if (!liveUrl) return null
+
+  return (
+    <a
+      href={liveUrl}
+      target="_blank"
+      rel="noopener noreferrer"
+      className="project-image-overlay"
+      aria-label="View Live Site"
+      onClick={(e) => e.stopPropagation()}
+    >
+      <div className="overlay-content">
+        <i className="bi bi-box-arrow-up-right"></i>
+        <span>View Live Site</span>
+      </div>
+    </a>
+  )
+}
+
+function ArchitectureFlow({ steps }) {
+  return (
+    <div className="architecture-flow">
+      {steps.map((step, index) => (
+        <div key={index} className="architecture-step-wrapper">
+          <div className="architecture-step">
+            <span className="step-number">{index + 1}</span>
+            <span className="step-label">{step}</span>
+          </div>
+          {index < steps.length - 1 && (
+            <div className="architecture-arrow">
+              <i className="bi bi-arrow-down"></i>
+            </div>
+          )}
+        </div>
+      ))}
+    </div>
+  )
+}
+
+function ProjectDetailsModal({ project, onClose }) {
+  const prefersReducedMotion = useReducedMotion()
+
+  const handleKeyDown = useCallback((e) => {
+    if (e.key === 'Escape') onClose()
+  }, [onClose])
+
+  useEffect(() => {
+    document.addEventListener('keydown', handleKeyDown)
+    document.body.style.overflow = 'hidden'
+    return () => {
+      document.removeEventListener('keydown', handleKeyDown)
+      document.body.style.overflow = ''
+    }
+  }, [handleKeyDown])
+
+  if (!project) return null
+
+  const handleBackdropClick = (e) => {
+    if (e.target === e.currentTarget) onClose()
+  }
+
+  return (
+    <div
+      className="project-modal-backdrop"
+      onClick={handleBackdropClick}
+      role="dialog"
+      aria-modal="true"
+      aria-label={`${project.title} details`}
+    >
+      <div className={`project-modal ${prefersReducedMotion ? '' : 'modal-animate'}`}>
+        <div className="modal-header">
+          <div className="modal-header-info">
+            <h2 className="modal-title">{project.title}</h2>
+            <div className="modal-meta">
+              <span className="modal-category">{project.category}</span>
+              <ProjectStatusBadge status={project.status} />
+            </div>
+          </div>
+          <button
+            className="modal-close-btn"
+            onClick={onClose}
+            aria-label="Close modal"
+          >
+            <i className="bi bi-x-lg"></i>
+          </button>
+        </div>
+
+        <div className="modal-body">
+          <div className="modal-section">
+            <h3 className="modal-section-title">
+              <i className="bi bi-info-circle"></i>
+              Overview
+            </h3>
+            <p className="modal-description">{project.details.description}</p>
+          </div>
+
+          <div className="modal-section">
+            <h3 className="modal-section-title">
+              <i className="bi bi-diagram-3"></i>
+              Architecture
+            </h3>
+            <ArchitectureFlow steps={project.details.architecture} />
+          </div>
+
+          <div className="modal-section">
+            <h3 className="modal-section-title">
+              <i className="bi bi-check2-square"></i>
+              Key Capabilities
+            </h3>
+            <div className="capabilities-grid">
+              {project.details.capabilities.map((cap, index) => (
+                <div key={index} className="capability-item">
+                  <i className="bi bi-check2"></i>
+                  <span>{cap}</span>
+                </div>
+              ))}
+            </div>
+          </div>
+
+          <div className="modal-section">
+            <h3 className="modal-section-title">
+              <i className="bi bi-stack"></i>
+              Technology Stack
+            </h3>
+            <div className="modal-tech-tags">
+              {project.technologies.map((tech, index) => (
+                <span key={index} className="modal-tech-tag">{tech}</span>
+              ))}
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  )
+}
+
+function FeaturedProjectCard({ project, prefersReducedMotion }) {
+  return (
+    <div className="project-card-new">
+      <div className="project-card-image">
+        <img src={project.image} alt={project.title} />
+        <span className={`project-badge ${project.category.toLowerCase() === 'personal' ? 'personal' : 'internal'}`}>
+          {project.category}
+        </span>
+        <ImageOverlay liveUrl={project.liveUrl} />
+      </div>
+      <div className="project-card-content">
+        <h3 className="project-card-title">{project.title}</h3>
+        <p className="project-card-desc">{project.description}</p>
+        <div className="project-card-tags">
+          {project.technologies.map((tech, index) => (
+            <span key={index} className="project-tag">{tech}</span>
+          ))}
+        </div>
+        <ProjectActions liveUrl={project.liveUrl} githubUrl={project.githubUrl} />
+      </div>
+    </div>
+  )
+}
+
+function BuildingProjectCard({ project, prefersReducedMotion, onViewDetails }) {
+  return (
+    <div className={`project-card-new building-card ${project.id === 'ai-sdlc' ? 'building-card-featured' : ''}`}>
+      <div className="project-card-image">
+        <div className="building-card-visual">
+          <div className="building-visual-icon">
+            <i className="bi bi-robot"></i>
+          </div>
+          <div className="building-visual-pattern"></div>
+        </div>
+        <ProjectStatusBadge status={project.status} />
+      </div>
+      <div className="project-card-content">
+        <span className="building-category-label">{project.category}</span>
+        <h3 className="project-card-title">{project.title}</h3>
+        <p className="project-card-desc">{project.description}</p>
+        <div className="project-card-tags">
+          {project.technologies.map((tech, index) => (
+            <span key={index} className="project-tag">{tech}</span>
+          ))}
+        </div>
+        <div className="project-card-actions">
+          <button
+            className="project-action-btn project-action-details"
+            onClick={() => onViewDetails(project)}
+            aria-label={`View ${project.title} architecture`}
+          >
+            <i className="bi bi-diagram-3"></i>
+            <span>Architecture</span>
+          </button>
+          <span className="coming-soon-label">
+            <i className="bi bi-github"></i>
+            <span>Coming Soon</span>
+          </span>
+        </div>
+      </div>
+    </div>
+  )
+}
+
+function StatCard({ icon, value, suffix, label, desc, animate, prefersReducedMotion }) {
+  const count = useCountUp(value, 2000, animate && !prefersReducedMotion)
+
+  return (
+    <div className="stat-card">
+      <div className="stat-icon">
+        <i className={`bi ${icon}`}></i>
+      </div>
+      <div className="stat-content">
+        <h4 className="stat-number">{prefersReducedMotion ? value : count}{suffix}</h4>
+        <p className="stat-label">{label}</p>
+        <p className="stat-desc">{desc}</p>
+      </div>
+    </div>
+  )
+}
 
 function Portfolio() {
-  const [activeFilter, setActiveFilter] = useState('all')
-  const [selectedProject, setSelectedProject] = useState(null)
   const [formData, setFormData] = useState({ name: '', email: '', subject: '', message: '' })
   const [alert, setAlert] = useState({ type: '', message: '' })
   const [isSubmitting, setIsSubmitting] = useState(false)
-  const progressBarsRef = useRef(null)
-  const countersRef = useRef(null)
-
-  useEffect(() => {
-    const counters = countersRef.current?.querySelectorAll('.counter')
-    if (counters) {
-      counters.forEach(counter => {
-        const updateCount = () => {
-          const target = +counter.getAttribute('data-target')
-          const count = +counter.innerText
-          const speed = 100
-          const increment = target / speed
-          if (count < target) {
-            counter.innerText = Math.ceil(count + increment)
-            setTimeout(updateCount, 30)
-          } else {
-            counter.innerText = target
-          }
-        }
-        updateCount()
-      })
-    }
-
-    const progressBars = progressBarsRef.current?.querySelectorAll('.progress-bar')
-    if (progressBars) {
-      progressBars.forEach(bar => {
-        const progress = bar.getAttribute('data-progress')
-        setTimeout(() => {
-          bar.style.width = progress + '%'
-        }, 500)
-      })
-    }
-  }, [])
-
-  const projects = [
-    { id: 1, title: 'Portfolio', category: 'web', image: '/images/project-portfolio-img.jpg', description: 'Designed and developed a responsive personal portfolio website to showcase projects, technical skills, and professional achievements.', link: 'https://madeshram-portfolio.onrender.com', linkText: 'Live Demo' },
-    { id: 2, title: 'SmartSolve AI', category: 'web', image: '/images/project-SmartSolveAI-img.jpg', description: 'Built a custom AI assistant capable of storing, retrieving, and summarizing solutions to organizational problems.', link: 'https://github.com/maddy-hub515/Smart-AI-Agent', linkText: 'GitHub' },
-    { id: 3, title: 'E-Commerce Website', category: 'web', image: '/images/project-web-img.jpg', description: 'Full-stack e-commerce platform with product catalog, shopping cart, and secure checkout functionality.', link: '#', linkText: 'View Project' },
-    { id: 4, title: 'Fitness Tracker App', category: 'mobile', image: '/images/project-mobile-app.jpg', description: 'Mobile application for tracking workouts, nutrition, and fitness goals with progress analytics.', link: '#', linkText: 'View Project' },
-    { id: 5, title: 'CMS Platform', category: 'web', image: '/images/project-cms.jpg', description: 'Content management system for blog publishing with admin dashboard and user management.', link: '#', linkText: 'View Project' },
-    { id: 6, title: 'Product Branding', category: 'branding', image: '/images/project-branding.jpg', description: 'Brand identity design for a tech startup including logo, color palette, and guidelines.', link: '#', linkText: 'View Project' },
-    { id: 7, title: 'Admin Dashboard', category: 'web', image: '/images/project-dashboard.jpg', description: 'Admin panel for managing application data with charts, tables, and user roles.', link: '#', linkText: 'View Project' }
-  ]
-
-  const filteredProjects = projects.filter(project => activeFilter === 'all' || project.category === activeFilter)
+  const prefersReducedMotion = useReducedMotion()
+  const [statsRef, statsInView] = useInView({ threshold: 0.3, triggerOnce: true })
+  const [selectedProject, setSelectedProject] = useState(null)
+  const [buildingSectionRef, buildingInView] = useInView({ threshold: 0.1, triggerOnce: true })
 
   const handleChange = (e) => {
     const { name, value } = e.target
@@ -89,18 +472,39 @@ function Portfolio() {
       {/* HOME SECTION */}
       <section id="home" className="hero-section">
         <div className="hero-overlay"></div>
+
+        {/* Background Ambient Glow */}
+        <div className="hero-ambient-glow glow-1"></div>
+        <div className="hero-ambient-glow glow-2"></div>
+
+        {/* Floating Code Lines */}
+        <div className="hero-code-particles">
+          {!prefersReducedMotion && (
+            <>
+              <div className="code-line" style={{ left: '8%', width: '60px', animationDuration: '18s', animationDelay: '0s' }}></div>
+              <div className="code-line" style={{ left: '22%', width: '90px', animationDuration: '22s', animationDelay: '-3s' }}></div>
+              <div className="code-line" style={{ left: '45%', width: '45px', animationDuration: '20s', animationDelay: '-7s' }}></div>
+              <div className="code-line" style={{ left: '68%', width: '75px', animationDuration: '25s', animationDelay: '-5s' }}></div>
+              <div className="code-line" style={{ left: '85%', width: '55px', animationDuration: '19s', animationDelay: '-10s' }}></div>
+              <div className="code-line" style={{ left: '35%', width: '40px', animationDuration: '23s', animationDelay: '-12s' }}></div>
+              <div className="code-line" style={{ left: '55%', width: '65px', animationDuration: '21s', animationDelay: '-8s' }}></div>
+              <div className="code-line" style={{ left: '75%', width: '50px', animationDuration: '17s', animationDelay: '-2s' }}></div>
+            </>
+          )}
+        </div>
+
         <div className="hero-content">
-          <div className="greeting-badge">
+          <div className={`greeting-badge ${prefersReducedMotion ? '' : 'hero-animate hero-animate-1'}`}>
             <span>Hi, I'm</span>
             <span className="wave-emoji">👋</span>
           </div>
-          <h1 className="hero-name">Madesh Ram</h1>
-          <h2 className="hero-title">Software Engineer</h2>
-          <h3 className="hero-subtitle">.NET Full-Stack Developer</h3>
-          <p className="hero-description">
+          <h1 className={`hero-name ${prefersReducedMotion ? '' : 'hero-animate hero-animate-2'}`}>Madesh Ram</h1>
+          <h2 className={`hero-title ${prefersReducedMotion ? '' : 'hero-animate hero-animate-3'}`}>Software Engineer</h2>
+          <h3 className={`hero-subtitle ${prefersReducedMotion ? '' : 'hero-animate hero-animate-4'}`}>.NET Full-Stack Developer</h3>
+          <p className={`hero-description ${prefersReducedMotion ? '' : 'hero-animate hero-animate-5'}`}>
             I build scalable and secure web applications using C#, .NET Core, ASP.NET, React, SQL Server, and Azure. Turning ideas into real-world solutions.
           </p>
-          <div className="hero-buttons">
+          <div className={`hero-buttons ${prefersReducedMotion ? '' : 'hero-animate hero-animate-6'}`}>
             <a href="#projects" className="btn-primary-custom">
               <i className="bi bi-box-arrow-up-right"></i>
               <span>View My Work</span>
@@ -110,7 +514,7 @@ function Portfolio() {
               <span>Download Resume</span>
             </a>
           </div>
-          <div className="tech-stack">
+          <div className={`tech-stack ${prefersReducedMotion ? '' : 'hero-animate hero-animate-7'}`}>
             <span className="tech-label">Tech I work with:</span>
             <div className="tech-badges">
               <span className="tech-badge"><i className="bi bi-gear"></i> .NET</span>
@@ -121,51 +525,48 @@ function Portfolio() {
             </div>
           </div>
         </div>
-        <div className="hero-stats">
-          <div className="stat-card">
-            <div className="stat-icon">
-              <i className="bi bi-calendar-check"></i>
-            </div>
-            <div className="stat-content">
-              <h4 className="stat-number">3+</h4>
-              <p className="stat-label">Years Experience</p>
-              <p className="stat-desc">Building enterprise solutions</p>
-            </div>
-          </div>
-          <div className="stat-card">
-            <div className="stat-icon">
-              <i className="bi bi-people"></i>
-            </div>
-            <div className="stat-content">
-              <h4 className="stat-number">10K+</h4>
-              <p className="stat-label">Users Impacted</p>
-              <p className="stat-desc">Applications used by thousands</p>
-            </div>
-          </div>
-          <div className="stat-card">
-            <div className="stat-icon">
-              <i className="bi bi-globe"></i>
-            </div>
-            <div className="stat-content">
-              <h4 className="stat-number">20+</h4>
-              <p className="stat-label">Client Environments</p>
-              <p className="stat-desc">Delivered solutions across industries</p>
-            </div>
-          </div>
-          <div className="stat-card">
-            <div className="stat-icon">
-              <i className="bi bi-graph-up-arrow"></i>
-            </div>
-            <div className="stat-content">
-              <h4 className="stat-number">60%</h4>
-              <p className="stat-label">Query Performance Improvement</p>
-              <p className="stat-desc">Through optimization and best practices</p>
-            </div>
-          </div>
+        <div className="hero-stats" ref={statsRef}>
+          <StatCard
+            icon="bi-calendar-check"
+            value={3}
+            suffix="+"
+            label="Years Experience"
+            desc="Building enterprise solutions"
+            animate={statsInView}
+            prefersReducedMotion={prefersReducedMotion}
+          />
+          <StatCard
+            icon="bi-people"
+            value={10}
+            suffix="K+"
+            label="Users Impacted"
+            desc="Applications used by thousands"
+            animate={statsInView}
+            prefersReducedMotion={prefersReducedMotion}
+          />
+          <StatCard
+            icon="bi-globe"
+            value={20}
+            suffix="+"
+            label="Client Environments"
+            desc="Delivered solutions across industries"
+            animate={statsInView}
+            prefersReducedMotion={prefersReducedMotion}
+          />
+          <StatCard
+            icon="bi-graph-up-arrow"
+            value={60}
+            suffix="%"
+            label="Query Performance Improvement"
+            desc="Through optimization and best practices"
+            animate={statsInView}
+            prefersReducedMotion={prefersReducedMotion}
+          />
         </div>
       </section>
 
       {/* ABOUT SECTION */}
+      <RevealSection>
       <section id="about" className="about-section">
         <div className="about-container">
           <div className="about-content">
@@ -270,8 +671,10 @@ function Portfolio() {
           </div>
         </div>
       </section>
+      </RevealSection>
 
       {/* SKILLS SECTION */}
+      <RevealSection>
       <section id="skills" className="skills-section">
         <div className="skills-header">
           <h2 className="skills-title">My Skills</h2>
@@ -400,8 +803,10 @@ function Portfolio() {
           </div>
         </div>
       </section>
+      </RevealSection>
 
       {/* PROJECTS SECTION */}
+      <RevealSection>
       <section id="projects" className="projects-section">
         <div className="projects-header">
           <div className="projects-header-content">
@@ -415,51 +820,56 @@ function Portfolio() {
         </div>
 
         <div className="projects-grid">
-          {/* Project 1 */}
-          <div className="project-card-new">
-            <div className="project-card-image">
-              <img src="/images/project-portfolio-img.jpg" alt="Portfolio Website" />
-              <span className="project-badge personal">Personal</span>
-            </div>
-            <div className="project-card-content">
-              <h3 className="project-card-title">Portfolio Website</h3>
-              <p className="project-card-desc">My personal portfolio built with React and .NET Core API with contact form and email integration.</p>
-              <div className="project-card-tags">
-                <span className="project-tag">React</span>
-                <span className="project-tag">.NET Core</span>
-                <span className="project-tag">SMTP</span>
-                <span className="project-tag">Netlify</span>
-              </div>
-            </div>
-          </div>
-          {/* Project 2 */}
-          <div className="project-card-new">
-            <div className="project-card-image">
-              <img src="/images/project-ToolDesign-img.png" alt="Tool Design" />
-              <span className="project-badge personal">Business</span>
-            </div>
-            <div className="project-card-content">
-              <h3 className="project-card-title">Alpha Tool Tech Engineering</h3>
-              <p className="project-card-desc">A professional website for Alpha Tool Tech Engineering, showcasing precision tooling, injection mold solutions, and industry expertise. Built with responsive design to deliver a seamless experience.</p>
-              <div className="project-card-tags">
-                <span className="project-tag">React</span>
-                <span className="project-tag">.NET Core</span>
-                <span className="project-tag">SMTP</span>
-                <span className="project-tag">Netlify</span>
-              </div>
-            </div>
-          </div>
-        </div>
-
-        {/* Pagination Dots */}
-        <div className="projects-pagination">
-          <span className="pagination-dot active"></span>
-          <span className="pagination-dot"></span>
-          <span className="pagination-dot"></span>
+          {featuredProjects.map((project) => (
+            <FeaturedProjectCard
+              key={project.id}
+              project={project}
+              prefersReducedMotion={prefersReducedMotion}
+            />
+          ))}
         </div>
       </section>
+      </RevealSection>
+
+      {/* CURRENTLY BUILDING SECTION */}
+      <RevealSection>
+      <section id="building" className="building-section">
+        <div className="building-header">
+          <div className="building-header-content">
+            <div className="building-title-row">
+              <h1 className="building-title">Currently Building</h1>
+              <span className="active-dev-badge">
+                <span className="active-dev-dot"></span>
+                Active Development
+              </span>
+            </div>
+            <p className="building-subtitle">AI-powered systems I'm actively designing and developing.</p>
+          </div>
+        </div>
+
+        <div
+          className={`projects-grid building-grid ${buildingInView ? 'building-visible' : ''} ${prefersReducedMotion ? 'reduced-motion' : ''}`}
+          ref={buildingSectionRef}
+        >
+          {currentlyBuildingProjects.map((project, index) => (
+            <div
+              key={project.id}
+              className="building-card-wrapper"
+              style={{ transitionDelay: prefersReducedMotion ? '0s' : `${index * 0.15}s` }}
+            >
+              <BuildingProjectCard
+                project={project}
+                prefersReducedMotion={prefersReducedMotion}
+                onViewDetails={setSelectedProject}
+              />
+            </div>
+          ))}
+        </div>
+      </section>
+      </RevealSection>
 
       {/* RESUME SECTION */}
+      <RevealSection>
       <section id="resume" className="resume-section">
         <div className="resume-header">
           <div className="resume-header-content">
@@ -569,8 +979,10 @@ function Portfolio() {
           </div>
         </div>
       </section>
+      </RevealSection>
 
       {/* CONTACT SECTION */}
+      <RevealSection>
       <section id="contact" className="contact-section">
         <div className="contact-bg-overlay"></div>
         
@@ -695,6 +1107,15 @@ function Portfolio() {
           </div>
         </div>
       </section>
+      </RevealSection>
+
+      {/* PROJECT DETAILS MODAL */}
+      {selectedProject && (
+        <ProjectDetailsModal
+          project={selectedProject}
+          onClose={() => setSelectedProject(null)}
+        />
+      )}
     </>
   )
 }
