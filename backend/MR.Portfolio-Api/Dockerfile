@@ -1,12 +1,11 @@
 FROM mcr.microsoft.com/dotnet/sdk:10.0 AS build
 WORKDIR /src
 
-COPY backend/MR.Portfolio-Api/MR.Portfolio-Api.csproj backend/MR.Portfolio-Api/
-RUN dotnet restore backend/MR.Portfolio-Api/MR.Portfolio-Api.csproj
+COPY MR.Portfolio-Api.csproj ./
+RUN dotnet restore MR.Portfolio-Api.csproj
 
-COPY backend/ backend/
-RUN dotnet publish backend/MR.Portfolio-Api/MR.Portfolio-Api.csproj -c Release -o /app/publish
-
+COPY . .
+RUN dotnet publish MR.Portfolio-Api.csproj -c Release -o /app/publish --no-restore
 FROM mcr.microsoft.com/dotnet/aspnet:10.0
 WORKDIR /app
 COPY --from=build /app/publish .
