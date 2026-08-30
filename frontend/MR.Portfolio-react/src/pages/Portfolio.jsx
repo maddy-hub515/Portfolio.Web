@@ -7,22 +7,32 @@ const featuredProjects = [
     id: 'portfolio',
     title: 'Portfolio Website',
     category: 'Personal',
-    image: '/images/project-portfolio-img.jpg',
+    image: '/images/project-portfolio-img.jpeg',
     description: 'My personal portfolio built with React and .NET Core API with contact form and email integration.',
     technologies: ['React', '.NET Core', 'SMTP', 'Netlify'],
-    liveUrl: 'https://madeshram-portfolio.onrender.com',
-    githubUrl: 'https://github.com/maddy-hub515',
+    liveUrl: 'https://maddys-portfolio.netlify.app/',
+    githubUrl: 'https://github.com/maddy-hub515/Portfolio.Web',
   },
   {
     id: 'alpha-tool',
     title: 'Alpha Tool Tech Engineering',
     category: 'Business',
-    image: '/images/project-ToolDesign-img.png',
+    image: '/images/project-ToolDesign-img.jpeg',
     description: 'A professional website for Alpha Tool Tech Engineering, showcasing precision tooling, injection mold solutions, and industry expertise. Built with responsive design to deliver a seamless experience.',
     technologies: ['React', '.NET Core', 'SMTP', 'Netlify'],
-    liveUrl: null,
-    githubUrl: 'https://github.com/maddy-hub515',
+    liveUrl: 'https://alphatooltech.netlify.app/',
+    githubUrl: 'https://github.com/maddy-hub515/JR.ToolDesign.Web',
   },
+  {
+    id: 'Daily-Expense-Tracker',
+    title: 'Daily Expense Tracker',
+    category: 'PERSONAL',
+    image: '/images/project-Daily-Expense-Tracker-img.jpeg',
+    description: 'A Python automation tool that monitors Gmail for HDFC Bank transaction notifications, parses debit details, and sends a clean daily expense summary via email. Scheduled to run automatically using GitHub Actions.',
+    technologies: ['Python', 'IMAP', 'SMTP', 'BeautifulSoup','GitHub Actions'],
+    liveUrl: null,
+    githubUrl: 'https://github.com/maddy-hub515/Daily-Expense-Tracker',
+  }
 ]
 
 const currentlyBuildingProjects = [
@@ -163,6 +173,61 @@ const currentlyBuildingProjects = [
       description: 'The system is being designed to assist with content planning, script preparation, title and description generation, thumbnail and asset management, video processing, YouTube uploads, scheduled publishing, publishing status tracking, and post-publishing workflows.',
     },
   },
+  {
+    id: 'careerflow-agent',
+    title: 'AI CareerFlow Agent',
+    category: 'AI / Automation',
+    status: 'In Development',
+    description: 'An AI-powered job discovery and career automation platform designed to streamline the job search workflow, from multi-portal job discovery and intelligent job matching to application tracking and personalized job recommendations.',
+    technologies: [
+      'AI',
+      '.NET',
+      'C#',
+      'ASP.NET Core',
+      'Worker Service',
+      'Playwright',
+      'SQL Server',
+      'EF Core',
+      'Automation',
+      'Naukri',
+      'LinkedIn',
+      'Indeed',
+    ],
+    liveUrl: null,
+    githubUrl: null,
+    details: {
+      capabilities: [
+      'Multi-portal job discovery',
+      'Job search and filtering',
+      'Job deduplication',
+      'Job description extraction',
+      'Skill and keyword matching',
+      'Job relevance scoring',
+      'Personalized job recommendations',
+      'Job application tracking',
+      'Application status management',
+      'Resume management',
+      'Job search history',
+      'Scheduled job discovery',
+      'Email notifications',
+      'Background job processing',
+      'Portal integration architecture',
+      ],
+      architecture: [
+        'Job Search Configuration',
+        'Multi-Portal Job Discovery',
+        'Job Data Extraction',
+        'Job Filtering & Deduplication',
+        'AI Skill & Relevance Matching',
+        'Job Scoring & Recommendations',
+        'Job Storage & Search History',
+        'Application Tracking',
+        'Scheduled Job Discovery',
+        'Email Notifications',
+      ],
+      description: 'The system is designed to automate and streamline the job search process across multiple job portals, including job discovery, filtering, deduplication, skill matching, relevance scoring, personalized recommendations, application tracking, resume management, scheduled job searches, and email notifications.',
+    },
+  }
 ]
 
 function ProjectStatusBadge({ status }) {
@@ -651,7 +716,7 @@ function Portfolio() {
 
           <div className="about-image-section">
             <div className="about-image-wrapper">
-              <img src="/images/Madesh_about_img.JPG" alt="Madesh Ram" className="about-profile-img" />
+              <img src="/images/Madesh_about_img.jpg" alt="Madesh Ram" className="about-profile-img" />
               <div className="about-image-overlay">
                 <span className="signature-text">Madesh Ram</span>
                 <span className="tagline-text">BUILD • LEARN • GROW</span>
