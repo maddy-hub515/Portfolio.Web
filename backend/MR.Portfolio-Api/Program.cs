@@ -1,5 +1,5 @@
-using System.Net;
 using System.Net.Mail;
+using Resend;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -10,6 +10,17 @@ builder.Services.AddOpenApiDocument();
 // Add logging
 builder.Logging.ClearProviders();
 builder.Logging.AddConsole();
+
+// Configure Resend
+builder.Services.AddOptions();
+builder.Services.AddHttpClient<ResendClient>();
+
+builder.Services.Configure<ResendClientOptions>(options =>
+{
+    options.ApiToken = builder.Configuration["RESEND_API_KEY"];
+});
+
+builder.Services.AddTransient<IResend, ResendClient>();
 
 // Add CORS
 builder.Services.AddCors(options =>
@@ -65,7 +76,8 @@ app.Use(async (context, next) =>
 app.MapPost("/api/contact", async (
     ContactFormModel model,
     IConfiguration configuration,
-    ILogger<Program> logger) =>
+    ILogger<Program> logger,
+    IResend resend) =>
 {
     try
     {
@@ -80,7 +92,9 @@ app.MapPost("/api/contact", async (
             string.IsNullOrWhiteSpace(model.Subject) ||
             string.IsNullOrWhiteSpace(model.Message))
         {
-            logger.LogWarning("Contact request failed validation: missing required fields.");
+            logger.LogWarning(
+                "Contact request failed validation: missing required fields."
+            );
 
             return Results.BadRequest(new
             {
@@ -102,107 +116,92 @@ app.MapPost("/api/contact", async (
             });
         }
 
-        var emailBody = $@"
-            <h3>New Contact Request</h3>
-            <p><strong>Name:</strong> {model.Name}</p>
-            <p><strong>Email:</strong> {model.Email}</p>
-            <p><strong>Subject:</strong> {model.Subject}</p>
-            <p><strong>Message:</strong><br>{model.Message}</p>";
-
         // Read configuration
         var emailTo = configuration["ContactSettings:ToEmail"];
-        var smtpHost = configuration["Smtp:Host"];
-        var smtpPortString = configuration["Smtp:Port"];
-        var smtpUser = configuration["Smtp:Username"];
-        var smtpPass = configuration["Smtp:Password"];
+        var resendApiKey = configuration["RESEND_API_KEY"];
 
-        // Log configuration status WITHOUT logging password
+        // Validate Resend configuration
         logger.LogInformation(
-            "SMTP configuration: Host={Host}, Port={Port}, Username={Username}, PasswordConfigured={PasswordConfigured}, ToEmailConfigured={ToEmailConfigured}",
-            smtpHost,
-            smtpPortString,
-            smtpUser,
-            !string.IsNullOrWhiteSpace(smtpPass),
+            "Resend configuration: ApiKeyConfigured={ApiKeyConfigured}, ToEmailConfigured={ToEmailConfigured}",
+            !string.IsNullOrWhiteSpace(resendApiKey),
             !string.IsNullOrWhiteSpace(emailTo)
         );
 
-        // Validate SMTP configuration
-        if (string.IsNullOrWhiteSpace(smtpHost))
+        if (string.IsNullOrWhiteSpace(resendApiKey))
         {
-            logger.LogError("SMTP Host is missing.");
-            return Results.Problem(
-                "SMTP configuration is incomplete.",
-                statusCode: 500);
-        }
+            logger.LogError("RESEND_API_KEY is missing.");
 
-        if (!int.TryParse(smtpPortString, out var smtpPort))
-        {
-            logger.LogError(
-                "SMTP Port is missing or invalid. Value={Port}",
-                smtpPortString
+            return Results.Problem(
+                "Email service configuration is incomplete.",
+                statusCode: 500
             );
-
-            return Results.Problem(
-                "SMTP configuration is incomplete.",
-                statusCode: 500);
-        }
-
-        if (string.IsNullOrWhiteSpace(smtpUser))
-        {
-            logger.LogError("SMTP Username is missing.");
-            return Results.Problem(
-                "SMTP configuration is incomplete.",
-                statusCode: 500);
-        }
-
-        if (string.IsNullOrWhiteSpace(smtpPass))
-        {
-            logger.LogError("SMTP Password is missing.");
-            return Results.Problem(
-                "SMTP configuration is incomplete.",
-                statusCode: 500);
         }
 
         if (string.IsNullOrWhiteSpace(emailTo))
         {
             logger.LogError("ContactSettings:ToEmail is missing.");
+
             return Results.Problem(
                 "Contact email configuration is incomplete.",
-                statusCode: 500);
+                statusCode: 500
+            );
         }
 
-        // Configure SMTP
-        using var smtp = new SmtpClient(smtpHost, smtpPort)
-        {
-            Credentials = new NetworkCredential(
-                smtpUser,
-                smtpPass
-            ),
-            EnableSsl = true
-        };
+        // Create email body
+        var emailBody = $@"
+            <h3>New Contact Request</h3>
 
-        var mailMessage = new MailMessage
+            <p>
+                <strong>Name:</strong> {model.Name}
+            </p>
+
+            <p>
+                <strong>Email:</strong> {model.Email}
+            </p>
+
+            <p>
+                <strong>Subject:</strong> {model.Subject}
+            </p>
+
+            <p>
+                <strong>Message:</strong>
+            </p>
+
+            <p>
+                {model.Message}
+            </p>
+        ";
+
+        /*
+         * IMPORTANT:
+         *
+         * onboarding@resend.dev is suitable for initial testing.
+         *
+         * For production, replace this with an email address
+         * from a verified domain in your Resend account.
+         */
+        var emailMessage = new EmailMessage
         {
-            From = new MailAddress(
-                smtpUser,
-                "Portfolio Contact"
-            ),
+            From = "Portfolio <onboarding@resend.dev>",
             Subject = model.Subject,
-            Body = emailBody,
-            IsBodyHtml = true
+            HtmlBody = emailBody
         };
 
-        mailMessage.To.Add(emailTo);
+        emailMessage.To.Add(emailTo);
+
+        // Optional: Reply directly to the person who contacted you
+        emailMessage.ReplyTo.Add(model.Email);
 
         logger.LogInformation(
             "Attempting to send contact email to {ToEmail}",
             emailTo
         );
 
-        await smtp.SendMailAsync(mailMessage);
+        var response = await resend.EmailSendAsync(emailMessage);
 
         logger.LogInformation(
-            "Contact email sent successfully."
+            "Contact email sent successfully. Resend response: {Response}",
+            response.Content
         );
 
         return Results.Ok(new
@@ -212,9 +211,6 @@ app.MapPost("/api/contact", async (
     }
     catch (Exception ex)
     {
-        // IMPORTANT:
-        // This logs the actual exception to Render,
-        // but does NOT expose it to the frontend.
         logger.LogError(
             ex,
             "Error occurred while processing contact form."
@@ -222,7 +218,8 @@ app.MapPost("/api/contact", async (
 
         return Results.Problem(
             "Something went wrong. Please try again later.",
-            statusCode: 500);
+            statusCode: 500
+        );
     }
 });
 
@@ -236,4 +233,3 @@ public class ContactFormModel
     public string? Subject { get; set; }
     public string? Message { get; set; }
 }
-
