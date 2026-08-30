@@ -189,9 +189,6 @@ app.MapPost("/api/contact", async (
 
         emailMessage.To.Add(emailTo);
 
-        // Optional: Reply directly to the person who contacted you
-        emailMessage.ReplyTo.Add(model.Email);
-
         logger.LogInformation(
             "Attempting to send contact email to {ToEmail}",
             emailTo
